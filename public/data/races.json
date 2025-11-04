@@ -1,0 +1,890 @@
+[
+  {
+    "id": "human",
+    "name": "Human",
+    "aliases": [
+      "Humans",
+      "Human Beings",
+      "Humano"
+    ],
+    "category": "Humans & Allies",
+    "attributes_roll": {
+      "I.Q.": "3D6",
+      "M.E.": "3D6",
+      "M.A.": "3D6",
+      "P.S.": "3D6",
+      "P.P.": "3D6",
+      "P.E.": "3D6",
+      "P.B.": "3D6",
+      "Spd": "3D6"
+    },
+    "hit_points": "P.E. + 1D6 per level (starting at level one)",
+    "sdc": "Standard; plus those from O.C.C. and physical skills",
+    "average_ppe": "2D6 adults (5D6 for children till ~18; higher if mage/clergy O.C.C.)",
+    "occ_available": "Any O.C.C./P.C.C.",
+    "horror_factor": "Not applicable",
+    "appearance": "Varied; tend to be tall, lean, muscular; light-skinned common; hair blonde/brown/black",
+    "size": {
+      "height": "5'0\"–6'6\" (1.5–1.9 m)",
+      "weight": "100–200 lb (45–90 kg)"
+    },
+    "lifespan": "≈60 years",
+    "special_abilities": [
+      "Creative, resourceful, adaptable (roleplay trait)"
+    ],
+    "bonuses": {},
+    "psionics": "Standard; see psionics section",
+    "magic": "By O.C.C. only",
+    "enemies": [
+      "Wolfen",
+      "Goblins",
+      "Hob-Goblins",
+      "Orcs",
+      "Kobolds",
+      "Ogres",
+      "Trolls",
+      "Changelings",
+      "Giants",
+      "Most supernatural beings/creatures of magic"
+    ],
+    "allies": [
+      "Elves",
+      "Dwarves",
+      "Gnomes",
+      "Titans",
+      "Rahu-Men",
+      "Occasional creatures of magic (e.g., sphinx, dragons)"
+    ],
+    "habitat": "Worldwide; strong kingdoms include Western Empire, Timiro, Bizantium, Land of the South Winds, Phi, Lopan, Eastern Territory",
+    "favorite_weapons": "Any; humans excel at warfare; magic and magic weapons common",
+    "armor": "All types",
+    "deities": "Varied",
+    "notes": [
+      "Highly educated and skilled; explorers; aggressive yet capable of compassion",
+      "Dominant civilization of the age"
+    ]
+  },
+  {
+    "id": "elf",
+    "name": "Elf",
+    "aliases": [
+      "Elves",
+      "Elfo"
+    ],
+    "category": "Humans & Allies",
+    "attributes_roll": {
+      "I.Q.": "3D6+1",
+      "M.E.": "3D6",
+      "M.A.": "2D6",
+      "P.S.": "3D6",
+      "P.P.": "4D6",
+      "P.E.": "3D6",
+      "P.B.": "5D6",
+      "Spd": "3D6"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "10 + O.C.C./physical skills",
+    "average_ppe": "5D6 adults; 1D6 x 10 for children till ~16",
+    "occ_available": "Any O.C.C./P.C.C.",
+    "horror_factor": "Not applicable",
+    "appearance": "Tall, slender, very handsome; pointed ears; dark eyes; dark hair common",
+    "size": {
+      "height": "6'0\"–6'10\" (1.8–2.1 m)",
+      "weight": "100–250 lb (45–113 kg)"
+    },
+    "lifespan": "Average 600 years (up to ~1200)",
+    "special_abilities": [
+      "Nightvision 60 ft (18.3 m)",
+      "Longevity"
+    ],
+    "bonuses": {},
+    "psionics": "Standard",
+    "magic": "By O.C.C. only",
+    "enemies": [
+      "Wolfen",
+      "Goblins",
+      "Hob-Goblins",
+      "Orcs",
+      "Kobolds",
+      "Ogres",
+      "Trolls",
+      "Changelings",
+      "Most evil supernatural beings"
+    ],
+    "allies": [
+      "Humans (closest)",
+      "Titans",
+      "Rahu-Men (some)",
+      "Occasional dwarves",
+      "Gnomes",
+      "Good-aligned members of monster races",
+      "Some creatures of magic (dragons, sphinx)",
+      "Faerie folk (pixies, brownies, sprites, faeries)"
+    ],
+    "habitat": "Human kingdoms: Phi, Lopan, Eastern Territory, Old Kingdom, Timiro; scattered",
+    "favorite_weapons": "Swords, knives, blunt weapons, long bow, magic weapons",
+    "armor": "All types",
+    "deities": "Varied",
+    "notes": [
+      "Highly educated, moral; historic rivalry with dwarves; sometimes viewed as arrogant"
+    ]
+  },
+  {
+    "id": "dwarf",
+    "name": "Dwarf",
+    "aliases": [
+      "Dwarves",
+      "Enano"
+    ],
+    "category": "Humans & Allies",
+    "attributes_roll": {
+      "I.Q.": "3D6",
+      "M.E.": "3D6",
+      "M.A.": "2D6",
+      "P.S.": "4D6+6",
+      "P.P.": "3D6",
+      "P.E.": "4D6",
+      "P.B.": "2D6+2",
+      "Spd": "2D6 running; 1D6 digging"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "15 + physical skills",
+    "average_ppe": "3D6",
+    "occ_available": "Any O.C.C. except magic (dwarves have forsaken magic practice)",
+    "horror_factor": "Not applicable",
+    "appearance": "Short, husky, powerful muscles; ruddy complexions; white hair with age; often bearded",
+    "size": {
+      "height": "3'0\"–4'0\" (0.9–1.2 m)",
+      "weight": "100–200 lb (45–90 kg)"
+    },
+    "lifespan": "≈250+ years (up to 500)",
+    "special_abilities": [
+      "Nightvision 90 ft (27.4 m)",
+      "Underground Tunneling (40% +5%/level)",
+      "Underground Architecture (30% +5%/level; traps at half)",
+      "Underground Sense of Direction (40% +5%/level; plus location 30% +5%/level)",
+      "Metalworking (Field Armorer +10%)",
+      "Recognize Precious Metals & Stones (+10%)"
+    ],
+    "bonuses": {
+      "save_vs_magic": "+1",
+      "save_vs_possession": "+2",
+      "save_vs_horror_factor": "+2"
+    },
+    "psionics": "Standard",
+    "magic": "Do not practice any magic (cultural vow); can use magic items",
+    "enemies": [
+      "Goblins",
+      "Hob-Goblins",
+      "Orcs",
+      "Ogres",
+      "Trolls",
+      "Wolfen",
+      "Most monster races",
+      "Often distrust elves"
+    ],
+    "allies": [
+      "Humans (fond)",
+      "Kobolds (respect skills)",
+      "Troglodytes",
+      "Gnomes",
+      "Indifferent to faerie folk, titans"
+    ],
+    "habitat": "Worldwide; common in Western Empire, Old Kingdom, Timiro, Eastern Territory; subterranean communities in Old Kingdom Mountains",
+    "favorite_weapons": "Battle/throwing axes, picks, throwing knives, large swords (often back-worn), long-handled war hammers/maces, morning stars, magic weapons",
+    "armor": "Chain, scale, plate preferred; can wear all",
+    "deities": "Varied",
+    "notes": [
+      "Best armorers/weaponsmiths; ancient Elf–Dwarf War legacy; gruff but capable and loyal"
+    ]
+  },
+  {
+    "id": "gnome",
+    "name": "Gnome",
+    "aliases": [
+      "Gnomes",
+      "Gnomo"
+    ],
+    "category": "Humans & Allies",
+    "attributes_roll": {
+      "I.Q.": "3D6",
+      "M.E.": "3D6+6",
+      "M.A.": "3D6+4",
+      "P.S.": "3D6+4",
+      "P.P.": "4D6",
+      "P.E.": "3D6+6",
+      "P.B.": "4D6",
+      "Spd": "2D6 running; 1D6 digging"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "By O.C.C./physical skills (no base S.D.C.)",
+    "average_ppe": "4D6",
+    "occ_available": "Any magic, clergy, or optional O.C.C.s; ranger, mercenary, soldier, thief, assassin",
+    "horror_factor": "Not applicable",
+    "appearance": "Very short, thin, handsome; white hair, bushy eyebrows; males bearded; females with long flowing hair",
+    "size": {
+      "height": "2'0\"–2'6\" (0.6–0.75 m)",
+      "weight": "20–50 lb (9–22.6 kg)"
+    },
+    "lifespan": "≈300+ years (up to 600)",
+    "special_abilities": [
+      "Nightvision 90 ft (27.4 m)",
+      "Underground Tunneling (30% +5%/level)",
+      "Underground Architecture (20% +5%/level; traps at half)",
+      "Underground Sense of Direction (30% +5%/level; landmarks 20% +5%/level)"
+    ],
+    "bonuses": {
+      "save_vs_poison": "+1",
+      "save_vs_disease": "+1"
+    },
+    "psionics": "None",
+    "magic": "Practitioners of magic only",
+    "enemies": [
+      "Kobolds",
+      "Goblins",
+      "Hob-Goblins",
+      "Orcs",
+      "Ogres",
+      "Trolls",
+      "Some may dislike Elves/Dwarves"
+    ],
+    "allies": [
+      "Humans",
+      "Elves",
+      "Faerie folk"
+    ],
+    "habitat": "Old Kingdom, Eastern Territory, Great Northern Wilderness; subterranean in Old Kingdom and Great Northern Mountains",
+    "favorite_weapons": "Knives/throwing knives, throwing axes, short swords, short bow, sling, small magic weapons",
+    "armor": "Any that fits (special order common)",
+    "deities": "Varied",
+    "notes": [
+      "Agile; excellent rangers/spies/thieves; attracted to magic; some animosity toward dwarves",
+      "Scaled-down polearms/etc. do half human damage"
+    ]
+  },
+  {
+    "id": "troglodyte",
+    "name": "Troglodyte",
+    "aliases": [
+      "Troglodytes",
+      "Trog"
+    ],
+    "category": "Monster Races (Subterranean)",
+    "attributes_roll": {
+      "I.Q.": "2D6",
+      "M.E.": "2D6",
+      "M.A.": "3D6",
+      "P.S.": "4D6+4",
+      "P.P.": "3D6+6",
+      "P.E.": "3D6",
+      "P.B.": "2D6",
+      "Spd": "6D6 running; 3D6 digging"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "10 + O.C.C./physical skills",
+    "average_ppe": "3D6",
+    "occ_available": "Mercenary, soldier, thief, assassin, monk, vagabond",
+    "horror_factor": "None when peaceful; 13 when enraged/fighting",
+    "appearance": "Broad-shouldered, pale; large dark eyes; fat, flabby-looking; heads resemble lizards/amphibians",
+    "size": {
+      "height": "4'0\"–5'0\"",
+      "weight": "130–250 lb"
+    },
+    "lifespan": "≈90+ years (up to 140)",
+    "special_abilities": [
+      "Nightvision 600 ft (183 m); day vision 30 ft (9 m)",
+      "Underground Tunneling (30% +5%/level)",
+      "Underground Architecture (20% +5%/level; traps at half)",
+      "Underground Sense of Direction (40% +5%/level; poor surface proximity sense 15% +5%/level)",
+      "Retractable claws 1D6 + P.S. bonus; bite 2D4"
+    ],
+    "bonuses": {
+      "attacks_per_melee": "+1",
+      "initiative": "+1",
+      "save_vs_poison": "+2",
+      "save_vs_disease": "+2",
+      "save_vs_horror_factor": "+2"
+    },
+    "psionics": "None",
+    "magic": "None",
+    "enemies": [
+      "Goblins",
+      "Hob-Goblins",
+      "Kobolds (resource conflict)",
+      "Fear most surface dwellers"
+    ],
+    "allies": [
+      "None formal; indifferent to dwarves/gnomes"
+    ],
+    "habitat": "Subterranean across mountains (Western Empire, Old Kingdom, Timiro, Baalgor Wastelands)",
+    "favorite_weapons": "Thrown rocks, crude stone weapons, cudgels, wooden clubs, sling",
+    "armor": "Little or none",
+    "deities": "Nymphs, elemental deities, forces of nature (sometimes)",
+    "notes": [
+      "Gentle, shy, cooperative; passive unless threatened; can become ferocious when protecting family"
+    ]
+  },
+  {
+    "id": "kobold",
+    "name": "Kobold",
+    "aliases": [
+      "Kobolds"
+    ],
+    "category": "Monster Races (Subterranean)",
+    "attributes_roll": {
+      "I.Q.": "3D6",
+      "M.E.": "2D6",
+      "M.A.": "3D6",
+      "P.S.": "3D6+3",
+      "P.P.": "3D6",
+      "P.E.": "3D6",
+      "P.B.": "1D6+6",
+      "Spd": "3D6 running; 1D6 digging"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "5 + O.C.C./physical skills",
+    "average_ppe": "4D6",
+    "occ_available": "Any except long bowman, knight, palladin",
+    "horror_factor": "Not applicable",
+    "appearance": "Short, thin but muscular; pale waxen skin; no facial hair; high hairline; large rounded-point ears; leathery skin; yellow/red eyes; small pointed teeth",
+    "size": {
+      "height": "3'0\"–4'0\"",
+      "weight": "70–120 lb"
+    },
+    "lifespan": "≈160+ years (up to 250)",
+    "special_abilities": [
+      "Nightvision 400 ft (122 m); day vision 40 ft (12 m)",
+      "Underground Tunneling/Architecture/Sense of Direction (same as dwarves)",
+      "Metalworking (Field Armorer +10%, +10 to weapon quality, gemology, and jewelry art)"
+    ],
+    "bonuses": {
+      "initiative": "+1",
+      "save_vs_horror_factor": "+2"
+    },
+    "psionics": "Standard",
+    "magic": "By O.C.C. only",
+    "enemies": [
+      "Humans",
+      "Elves",
+      "Gnomes",
+      "Changelings",
+      "Troglodytes at resource sites",
+      "Contempt for goblins/orcs"
+    ],
+    "allies": [
+      "Trolls",
+      "Ogres",
+      "Giants",
+      "Wolfen"
+    ],
+    "habitat": "Old Kingdom, Eastern Territory, Great Northern Wilderness; largest subterranean in Old Kingdom, Old Kingdom Mountains, Algor mountains",
+    "favorite_weapons": "Axes, picks, hammers, knives, swords; adore magic weapons",
+    "armor": "Prefer studded, chain, scale, plate",
+    "deities": "Demons and evil gods; sometimes powerful dragons",
+    "notes": [
+      "Cruel, cunning, organized; master craftsmen (arms/armor/jewelry); predators and frequent cannibals (~40%)"
+    ]
+  },
+  {
+    "id": "goblin",
+    "name": "Goblin",
+    "aliases": [
+      "Goblins"
+    ],
+    "category": "Monster Races",
+    "attributes_roll": {
+      "I.Q.": "2D6",
+      "M.E.": "3D6",
+      "M.A.": "2D6",
+      "P.S.": "3D6",
+      "P.P.": "3D6+6",
+      "P.E.": "3D6",
+      "P.B.": "2D6",
+      "Spd": "3D6 running; 1D6 digging"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "5 + O.C.C./physical skills",
+    "average_ppe": "6D6 typical; Cobbler: 3D4x10 + 1D6/level",
+    "occ_available": "Assassin, thief, mercenary, soldier, black priest, witch, vagabond, occasional psychic; special Cobbler R.C.C.",
+    "horror_factor": "None",
+    "appearance": "Short, skinny, spindly limbs; large ears/mouth; black/brown/red hair; dark eyes",
+    "size": {
+      "height": "3'0\"–4'0\"",
+      "weight": "70–120 lb"
+    },
+    "lifespan": "≈80+ years (up to 150)",
+    "special_abilities": [
+      "Nightvision 90 ft (27.4 m)",
+      "Crude Underground skills (tunneling 30% +5%/level; architecture 10% +5%/level; sense of direction 20% +5%/level; poor surface proximity)"
+    ],
+    "bonuses": {
+      "save_vs_faerie_magic": "+1",
+      "save_vs_horror_factor": "+2"
+    },
+    "psionics": "Standard (rare)",
+    "magic": "By O.C.C. only; Cobbler has limited faerie magic",
+    "enemies": [
+      "Humans",
+      "Kobolds",
+      "Dwarves",
+      "Gnomes",
+      "Changelings",
+      "Especially Elves"
+    ],
+    "allies": [
+      "Hob-Goblins",
+      "Orcs",
+      "Ogres",
+      "Trolls"
+    ],
+    "habitat": "Old Kingdom, Eastern Territory, Western Empire, Timiro, South; slums/ruins/sewers common",
+    "favorite_weapons": "All except pole arms and long bows",
+    "armor": "Prefer studded leather & chain",
+    "deities": "Evil gods, devils, demons; sometimes powerful dragons/sorcerers",
+    "notes": [
+      "Chaotic, lazy, cruel bullies; large numbers but unreliable; often cannon fodder"
+    ],
+    "subraces_or_variants": [
+      {
+        "id": "goblin_cobbler",
+        "name": "Goblin Cobbler (R.C.C.)",
+        "natural_abilities": [
+          "Metamorphosis into small dark animal (at-will; ≥ toad size)",
+          "Faerie magic (mend wood, wither plants, sense magic, tongues, charm, darkness; 2×/24h at level 3 equivalence)"
+        ],
+        "bonuses": {
+          "save_vs_magic": "+1",
+          "save_vs_possession": "+1",
+          "save_vs_horror_factor": "+3"
+        },
+        "notes": [
+          "1–15% of goblins are Cobblers; cannot learn more spells or increase casting level"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hobgoblin",
+    "name": "Hob-Goblin",
+    "aliases": [
+      "Hob-Goblins"
+    ],
+    "category": "Monster Races",
+    "attributes_roll": {
+      "I.Q.": "2D6",
+      "M.E.": "3D6+6",
+      "M.A.": "2D6",
+      "P.S.": "3D6",
+      "P.P.": "3D6",
+      "P.E.": "3D6",
+      "P.B.": "2D6",
+      "Spd": "3D6 running; 1D4 digging"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "By O.C.C./physical skills",
+    "average_ppe": "4D6",
+    "occ_available": "Assassin, thief, mercenary, soldier, black priest, witch, vagabond",
+    "horror_factor": "None",
+    "appearance": "Taller than goblins; big ears/nose/teeth; bald head; skinny legs, large feet",
+    "size": {
+      "height": "4'0\"–5'0\"",
+      "weight": "90–140 lb"
+    },
+    "lifespan": "≈80+ years (to 130; males often <40 due to lifestyle)",
+    "special_abilities": [
+      "Nightvision 40 ft (12.2 m); excellent day vision",
+      "Keen hearing (half penalties when blinded)",
+      "Crude Underground skills (tunneling 20% +5%/level; architecture 5% +5%/level; sense of direction 10% +5%/level; cannot judge surface proximity)"
+    ],
+    "bonuses": {
+      "initiative": "+1",
+      "dodge": "+1",
+      "save_vs_faerie_magic": "+1",
+      "save_vs_psionics": "+1",
+      "save_vs_possession": "+2",
+      "save_vs_horror_factor": "+2"
+    },
+    "psionics": "None; natural resistance via high M.E.",
+    "magic": "By O.C.C. only",
+    "enemies": [
+      "Humans",
+      "Kobolds",
+      "Dwarves",
+      "Gnomes",
+      "Changelings",
+      "Elves (especially)"
+    ],
+    "allies": [
+      "Goblins",
+      "Orcs",
+      "Ogres",
+      "Trolls"
+    ],
+    "habitat": "Old Kingdom, Eastern Territory, Western Empire, Timiro, South",
+    "favorite_weapons": "All except pole arms and long bows; love magic",
+    "armor": "Prefer chain, splint, scale, plate",
+    "deities": "Evil gods, devils, demons; sometimes powerful dragons/sorcerers",
+    "notes": [
+      "Lanky goblin mutations; aggressive, stubborn; somewhat more disciplined than goblins"
+    ]
+  },
+  {
+    "id": "orc",
+    "name": "Orc",
+    "aliases": [
+      "Orcs"
+    ],
+    "category": "Monster Races",
+    "attributes_roll": {
+      "I.Q.": "2D6",
+      "M.E.": "2D6",
+      "M.A.": "3D6",
+      "P.S.": "3D6+8",
+      "P.P.": "3D6",
+      "P.E.": "3D6+2",
+      "P.B.": "2D6",
+      "Spd": "3D6"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "10 + O.C.C./physical skills",
+    "average_ppe": "2D6",
+    "occ_available": "Mercenary, soldier, assassin, thief, black priest, witch, vagabond",
+    "horror_factor": "None",
+    "appearance": "Husky, muscular; flat hog/gorilla-like nose; pointed ears; bushy eyebrows; sharp teeth/fangs; long black hair",
+    "size": {
+      "height": "5'0\"–6'8\"",
+      "weight": "160–250 lb"
+    },
+    "lifespan": "≈50+ years (up to 80)",
+    "special_abilities": [
+      "Nightvision 40 ft (12.2 m); excellent day vision",
+      "Superior sense of smell",
+      "Track Blood Scent 1000 ft (15% +5%/level)",
+      "Recognize Scent of Others 50 ft (10% +3%/level; +13% for mate/offspring)",
+      "Claws 1D6 + P.S. bonus; bite 1D6"
+    ],
+    "bonuses": {
+      "roll_with_impact": "+1",
+      "save_vs_horror_factor": "+3"
+    },
+    "psionics": "None",
+    "magic": "Witchcraft and priest O.C.C.s only",
+    "enemies": [
+      "Humans",
+      "Elves",
+      "Dwarves",
+      "Gnomes",
+      "Changelings"
+    ],
+    "allies": [
+      "Goblins",
+      "Hob-Goblins",
+      "Ogres",
+      "Respect Wolfen, Trolls, Giants"
+    ],
+    "habitat": "Worldwide; prefer woodlands, hilly/rocky/mountainous regions; many in Old Kingdom, Eastern Territory, Western Empire, Timiro, South",
+    "favorite_weapons": "Large/heavy weapons (battle axes, pole arms, large swords); love magic weapons",
+    "armor": "Prefer chain, plate, heavy armor",
+    "deities": "Evil gods/devils/demons; powerful beings promising power/treasure",
+    "notes": [
+      "Followers not leaders; herd mentality; caring parents; often underestimated"
+    ]
+  },
+  {
+    "id": "ogre",
+    "name": "Ogre",
+    "aliases": [
+      "Ogres"
+    ],
+    "category": "Monster Races (Giant-kin)",
+    "attributes_roll": {
+      "I.Q.": "3D6",
+      "M.E.": "3D6",
+      "M.A.": "2D6",
+      "P.S.": "4D6+4",
+      "P.P.": "3D6",
+      "P.E.": "3D6+6",
+      "P.B.": "2D6",
+      "Spd": "3D6"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "20 + O.C.C./physical skills",
+    "average_ppe": "3D6",
+    "occ_available": "Any (no restriction)",
+    "horror_factor": "10",
+    "appearance": "Huge, hairy, muscular; canine teeth, claws; warm grey to tan thick hide; small round ears; dark eyes/hair",
+    "size": {
+      "height": "7'–12' (6' + 1D6 feet)",
+      "weight": "250–500 lb"
+    },
+    "lifespan": "≈90+ years (up to 130)",
+    "special_abilities": [
+      "Nightvision 40 ft (12.2 m); excellent day vision"
+    ],
+    "bonuses": {
+      "save_vs_horror_factor": "+2",
+      "claw": "2D4 + P.S.",
+      "kick": "3D6 + P.S.",
+      "bite": "2D4 (no P.S.)"
+    },
+    "psionics": "None",
+    "magic": "By O.C.C. only (any)",
+    "enemies": [
+      "Humans",
+      "Elves",
+      "Dwarves",
+      "Gnomes",
+      "Changelings",
+      "Faerie folk"
+    ],
+    "allies": [
+      "Orcs (common)",
+      "May work with others if leading or well paid"
+    ],
+    "habitat": "Small clans worldwide except Western Empire; largest in Old Kingdom and SW Yin-Sloth Jungles",
+    "favorite_weapons": "Large swords, axes, blunt weapons (mace, morning star, cudgel), sling, ball and chain",
+    "armor": "Often splint/scale/plate or nearly none",
+    "deities": "Evil gods, devils, demons",
+    "notes": [
+      "Excellent hunters and animal trainers; size/gear costs higher; targeted due to size"
+    ]
+  },
+  {
+    "id": "troll",
+    "name": "Troll",
+    "aliases": [
+      "Trolls"
+    ],
+    "category": "Monster Races (Giant-kin)",
+    "attributes_roll": {
+      "I.Q.": "3D6",
+      "M.E.": "2D6",
+      "M.A.": "2D6",
+      "P.S.": "4D6+10",
+      "P.P.": "4D6",
+      "P.E.": "3D6+6",
+      "P.B.": "3D6+4",
+      "Spd": "2D6"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "40 + O.C.C./physical skills",
+    "average_ppe": "3D6",
+    "occ_available": "Any except psychic P.C.C.s and illusionist; tend toward men of arms, witch, monk, clergy",
+    "horror_factor": "12",
+    "appearance": "Large, hairy, corpse-like; pale blotchy skin; stringy hair; red-rimmed eyes; huge fangs",
+    "size": {
+      "height": "9'–14' (8' + 1D6 feet)",
+      "weight": "300–700 lb"
+    },
+    "lifespan": "≈120+ years (up to 200)",
+    "special_abilities": [
+      "Nightvision 60 ft (18.3 m)",
+      "Excellent day vision",
+      "Natural climbers (75%/65), swimmers (60%)"
+    ],
+    "bonuses": {
+      "attacks_per_melee": "+1",
+      "save_vs_horror_factor": "+3",
+      "claw": "2D6 + P.S.",
+      "kick": "3D6 + P.S.",
+      "bite": "2D4 (no P.S.)"
+    },
+    "psionics": "None",
+    "magic": "By O.C.C. only",
+    "enemies": [
+      "Humans",
+      "Elves",
+      "Changelings (hate)",
+      "Little respect for most others"
+    ],
+    "allies": [
+      "Affinity with Kobolds; also works with Ogres, Orcs, Ratlings, Goblins, Hob-Goblins, others"
+    ],
+    "habitat": "Worldwide; solitary/pairs/small groups; largest in Old Kingdom and Baalgor Wastelands",
+    "favorite_weapons": "Large blades (sickles, scythes, axes, picks, large swords)",
+    "armor": "Varies from plate to rags; macabre trophies",
+    "deities": "Evil deities",
+    "notes": [
+      "Extortionists and racketeers; cruel/treacherous; giant weapons weigh 3–5× and do +1 die damage"
+    ]
+  },
+  {
+    "id": "changeling",
+    "name": "Changeling",
+    "aliases": [
+      "Changelings"
+    ],
+    "category": "Creatures of Magic (Shapechanger)",
+    "attributes_roll": {
+      "I.Q.": "3D6",
+      "M.E.": "4D6+6",
+      "M.A.": "4D6",
+      "P.S.": "3D6",
+      "P.P.": "3D6",
+      "P.E.": "2D6",
+      "P.B.": "2D6",
+      "Spd": "2D6"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "By O.C.C./physical skills",
+    "average_ppe": "5D6",
+    "occ_available": "Any O.C.C.",
+    "horror_factor": "10",
+    "appearance": "True form: 7' tall, thin, pale yellow skin, large sad eyes; can assume any humanoid appearance 3'–10'",
+    "size": {
+      "height": "7' true; 3'–10' in forms",
+      "weight": "≈180–250 lb; mass varies ~±30 lb with form"
+    },
+    "lifespan": "≈250+ years",
+    "special_abilities": [
+      "Shapechange into any humanoid (not animals/objects); 1 melee (15s) to transform; cannot add/remove limbs",
+      "Asexual; can appear male/female",
+      "High mental endurance; +5% to Disguise"
+    ],
+    "bonuses": {
+      "save_vs_telepathy_mind_control_horror": "+2"
+    },
+    "psionics": "Standard (as humans)",
+    "magic": "By O.C.C. only",
+    "enemies": [
+      "Feared/hunted by most races; periodic genocides"
+    ],
+    "allies": [
+      "Elves (closest), clandestine among humans, wolfen, orcs, trolls"
+    ],
+    "habitat": "Anywhere; rumored colonies Yin-Sloth Jungles or Floenry Islands",
+    "favorite_weapons": "Varies by guise",
+    "armor": "All types (clothes/gear do not morph)",
+    "deities": "Varied (similar to humans)",
+    "notes": [
+      "No alcohol tolerance; salt makes them ill; weak P.E.; conceal identity for survival"
+    ]
+  },
+  {
+    "id": "wolfen",
+    "name": "Wolfen",
+    "aliases": [
+      "Wolfen (Canine)"
+    ],
+    "category": "Canine Races",
+    "attributes_roll": {
+      "I.Q.": "3D6",
+      "M.E.": "3D6",
+      "M.A.": "2D6",
+      "P.S.": "4D6+1",
+      "P.P.": "3D6",
+      "P.E.": "3D6",
+      "P.B.": "3D6",
+      "Spd": "4D6"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "20 + O.C.C./physical skills",
+    "average_ppe": "3D6",
+    "occ_available": "Any (men at arms common; fewer magic-users)",
+    "horror_factor": "12",
+    "appearance": "Giant humanoid wolves; dark/light grey fur; canine muzzle/teeth; powerful jaws; hazel/brown/green eyes",
+    "size": {
+      "height": "7'–10' (6' + 1D4 feet)",
+      "weight": "250–500 lb"
+    },
+    "lifespan": "≈50+ years (up to 80)",
+    "special_abilities": [
+      "Nightvision 40 ft (12.2 m); excellent day vision",
+      "Keen hearing",
+      "Track Blood Scent 500 ft (20% +4%/level)",
+      "Recognize Scent of Others 50 ft (16% +4%/level; +10% mate/offspring)"
+    ],
+    "bonuses": {
+      "initiative": "+1",
+      "save_vs_horror_factor": "+2",
+      "punch_claw": "2D4 + P.S.",
+      "kick": "2D6 + P.S.",
+      "bite": "2D4 (no P.S.)"
+    },
+    "psionics": "Standard",
+    "magic": "By O.C.C. only (less common among Wolfen)",
+    "enemies": [
+      "Humans",
+      "Dwarves",
+      "Changelings; dislike faerie folk; wary of elves (human allies)"
+    ],
+    "allies": [
+      "Kobolds",
+      "Coyles",
+      "Kankoran",
+      "Bearmen",
+      "Algor giants",
+      "Orcs",
+      "Goblins",
+      "Other monster races"
+    ],
+    "habitat": "Great Northern Wilderness (core), Eastern Territory (north), Lopan; claim Northern Wilderness & N half Eastern Territory",
+    "favorite_weapons": "Pole arms, ball & chain, swords, axes; love rune weapons/magic items",
+    "armor": "Scale, splint, half-plate, plate & chain; all types used",
+    "deities": "Varied; Northern Gods and Gods of Light common",
+    "notes": [
+      "Organized/just; growing empire; disciplined soldiers; face prejudice in human lands"
+    ]
+  },
+  {
+    "id": "coyle",
+    "name": "Coyle",
+    "aliases": [
+      "Coyles"
+    ],
+    "category": "Canine Races",
+    "attributes_roll": {
+      "I.Q.": "3D6",
+      "M.E.": "3D6",
+      "M.A.": "2D6",
+      "P.S.": "3D6+1",
+      "P.P.": "4D6+1",
+      "P.E.": "3D6",
+      "P.B.": "3D6",
+      "Spd": "3D6"
+    },
+    "hit_points": "P.E. + 1D6 per level",
+    "sdc": "10 + O.C.C./physical skills",
+    "average_ppe": "3D6",
+    "occ_available": "Any; lean toward men at arms (thieves, assassins, rangers) and vagabonds",
+    "horror_factor": "11",
+    "appearance": "Giant humanoid coyotes; grey fur; canine features; animal-like digitigrade legs",
+    "size": {
+      "height": "6'–8' (6' + 4D6 inches)",
+      "weight": "200–300 lb"
+    },
+    "lifespan": "≈45+ years (to 65)",
+    "special_abilities": [
+      "Nightvision 40 ft (12.2 m); excellent day vision",
+      "Keen hearing",
+      "Track Blood Scent 500 ft (24% +4%/level)",
+      "Recognize Scent of Others 50 ft (12% +4%/level; +10% mate/offspring)"
+    ],
+    "bonuses": {
+      "initiative": "+1",
+      "save_vs_horror_factor": "+1",
+      "punch_claw": "1D6 + P.S.",
+      "kick": "2D6 + P.S.",
+      "bite": "1D6 (no P.S.)"
+    },
+    "psionics": "Standard",
+    "magic": "By O.C.C. only",
+    "enemies": [
+      "Similar to Wolfen; dislike Kankoran, Bearmen, Algor giants; highly irreverent toward others"
+    ],
+    "allies": [
+      "Kobolds",
+      "Orcs",
+      "Goblins",
+      "Bug bears",
+      "Other vicious monster races; unreliable with Wolfen"
+    ],
+    "habitat": "Great Northern Wilderness and Eastern Territory; near Wolfen",
+    "favorite_weapons": "Spears, swords, long/short bows; magic weapons/items",
+    "armor": "Scale, splint, half-plate, plate & chain; all types used",
+    "deities": "Varied",
+    "notes": [
+      "Chaotic, lazy, vicious raiders; source of atrocities attributed to Wolfen; undisciplined/cocky"
+    ]
+  }
+]

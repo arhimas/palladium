@@ -1,0 +1,18 @@
+// src/data/armorMap.js
+export const ARMOR_MAP = {
+  none: { name: "Sin armadura", ar: "0", sdc: "0", p_skill: "0", p_skill_pct: "0", p_spell_fail_pct: "0" },
+  leather: { name: "Cuero", ar: "11", sdc: "18", p_skill: "-1", p_skill_pct: "-2", p_spell_fail_pct: "2" },
+  studded_leather: { name: "Cuero tachonado", ar: "13", sdc: "38", p_skill: "-2", p_skill_pct: "-3", p_spell_fail_pct: "4" },
+  brigandine: { name: "Brigantina", ar: "15", sdc: "55", p_skill: "-4", p_skill_pct: "-8", p_spell_fail_pct: "8" },
+  scale_mail: { name: "Cota de escamas", ar: "16", sdc: "65", p_skill: "-6", p_skill_pct: "-10", p_spell_fail_pct: "10" },
+  chain_mail: { name: "Cota de malla", ar: "18", sdc: "90", p_skill: "-8", p_skill_pct: "-12", p_spell_fail_pct: "15" },
+  plate_armor: { name: "Armadura completa (placas)", ar: "20", sdc: "140", p_skill: "-12", p_skill_pct: "-20", p_spell_fail_pct: "25" },
+  helmet_basic: { name: "Casco básico", ar: "2", sdc: "12", p_skill: "-1", p_skill_pct: "0", p_spell_fail_pct: "0" },
+  helmet_full: { name: "Casco integral", ar: "4", sdc: "24", p_skill: "-2", p_skill_pct: "-1", p_spell_fail_pct: "2" },
+  shield_buckler: { name: "Escudo pequeño (buckler)", ar: "1", sdc: "20", p_skill: "0", p_skill_pct: "-1", p_spell_fail_pct: "0" },
+  shield_heater: { name: "Escudo de heraldo (heater)", ar: "4", sdc: "50", p_skill: "-2", p_skill_pct: "-3", p_spell_fail_pct: "0" },
+  gauntlets: { name: "Guanteletes", ar: "1", sdc: "8", p_skill: "-1", p_skill_pct: "0", p_spell_fail_pct: "0" },
+  vambraces: { name: "Brazales (vambraces)", ar: "1", sdc: "10", p_skill: "-1", p_skill_pct: "0", p_spell_fail_pct: "0" },
+  greaves: { name: "Grebas (piernas)", ar: "1", sdc: "12", p_skill: "-1", p_skill_pct: "-2", p_spell_fail_pct: "0" },
+  cuirass_small: { name: "Peto ligero", ar: "12", sdc: "30", p_skill: "-2", p_skill_pct: "-3", p_spell_fail_pct: "4" }
+};

@@ -1,0 +1,3 @@
+export const SPELLS_MAP = {
+  energy_bolt: { name: "Rayo de energía", school: "Invocation", ppe_cost: 5, range: "LoS (ver libro)", duration: "Instantánea", saving_throw: "ver libro", description: "Proyectil de energía mágica.", source: {"book": "PFRPG2 Main Book", "page_hint": "Spells list"} }
+};

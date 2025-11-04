@@ -1,0 +1,3 @@
+export const PSIONIC_MAP = {
+  telepathy: { name: "Telepathy", isp_cost: 4, range: "corta", duration: "ver libro", description: "Lee/transmite pensamientos." }
+};

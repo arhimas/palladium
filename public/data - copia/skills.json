@@ -1,0 +1,38 @@
+[
+  {
+    "id": "spellcraft",
+    "name": "Spellcraft",
+    "attribute": "I.Q.",
+    "description": "Conocimiento y uso de la magia."
+  },
+  {
+    "id": "lore",
+    "name": "Lore",
+    "attribute": "I.Q.",
+    "description": "Conocimientos generales/erudición."
+  },
+  {
+    "id": "melee_combat",
+    "name": "Melee Combat",
+    "attribute": "P.S.",
+    "description": "Combate cuerpo a cuerpo."
+  },
+  {
+    "id": "endurance",
+    "name": "Endurance",
+    "attribute": "P.E.",
+    "description": "Resistencia física."
+  },
+  {
+    "id": "prowl",
+    "name": "Prowl",
+    "attribute": "P.P.",
+    "description": "Sigilo."
+  },
+  {
+    "id": "lockpick",
+    "name": "Lockpick",
+    "attribute": "P.P.",
+    "description": "Ganzuar/forzar cerraduras."
+  }
+]

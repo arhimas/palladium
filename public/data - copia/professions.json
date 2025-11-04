@@ -1,0 +1,345 @@
+[
+  {
+    "id": "Priest of Light",
+    "name": "Priest of Light",
+    "alignment": "Any Good (typically Principled or Scrupulous)",
+    "attribute_requirements": { "IQ": "12+", "ME": "12+" },
+    "occ_skills": [
+      "Languages: Native Tongue 98%",
+      "Literacy (two of choice)",
+      "Lore (Religion)",
+      "Public Speaking / Oratory",
+      "W.P. (one of choice)"
+    ],
+    "related_skills_rules": "Select ~7 other skills at L1; add +1 at L3/L6/L9/L12 (GM per book)",
+    "starting_equipment": "Clerical vestments, travel clothes, bedroll, backpack, waterskin, writing kit (ink, quills, parchment).",
+    "armor": "Soft leather or chain at GM's discretion; holy symbols.",
+    "starting_armor_options": [
+      { "id": "soft_leather_10_20", "name": "Soft leather", "ar": 10, "sdc": 20 },
+      { "id": "chain_mail_14_44", "name": "Chain mail", "ar": 14, "sdc": 44 }
+    ],
+    "weapons": "Staff, mace, one additional of choice (non-exotic).",
+    "money": "Modest stipends and donations (GM).",
+    "notes": "Travelling/Temple Priest template; turning/holy powers per deity; see Priests section."
+  },
+  {
+    "id": "Priest of Darkness",
+    "name": "Priest of Darkness",
+    "alignment": "Selfish or Evil (often Anarchist/Evil)",
+    "attribute_requirements": { "IQ": "12+", "ME": "12+" },
+    "occ_skills": [
+      "Languages: Native Tongue 98%",
+      "Literacy (two of choice)",
+      "Lore: Demon & Monster (+10%)",
+      "Interrogation",
+      "W.P. (one of choice)"
+    ],
+    "related_skills_rules": "Select 7 other skills at L1; +1 at L3/L6/L9/L12.",
+    "starting_equipment": "Dark vestments, travel gear, waterskin, writing kit; ritual accoutrements.",
+    "armor": "As allowed by sect; often leather/chain.",
+    "starting_armor_options": [
+      { "id": "leather_12_30", "name": "Leather", "ar": 12, "sdc": 30 },
+      { "id": "chain_mail_14_44", "name": "Chain mail", "ar": 14, "sdc": 44 }
+    ],
+    "weapons": "As permitted; often mace/knife.",
+    "money": "Tithes/loot; GM mediated.",
+    "notes": "See Priests of Darkness O.C.C. entry."
+  },
+  {
+    "id": "Warrior Monk",
+    "name": "Warrior Monk",
+    "alignment": "Any (often Good)",
+    "attribute_requirements": { "IQ": "10+", "PE": "12+", "PP": "12+" },
+    "occ_skills": [
+      "Hand to Hand: Expert or Martial Arts",
+      "Meditation",
+      "Climbing",
+      "Prowl",
+      "W.P. Staff / W.P. Blunt"
+    ],
+    "related_skills_rules": "Physical focus; limited heavy armor.",
+    "starting_equipment": "Robes, travel gear, staff.",
+    "armor": "Light (robes/soft leather).",
+    "starting_armor_options": [
+      { "id": "none_0_0", "name": "No armor", "ar": 0, "sdc": 0 },
+      { "id": "soft_leather_10_20", "name": "Soft leather", "ar": 10, "sdc": 20 }
+    ],
+    "weapons": "Staff/blunt; few edges.",
+    "money": "Sparse.",
+    "notes": "See Warrior Monk section for full skill list."
+  },
+  {
+    "id": "Druid",
+    "name": "Druid",
+    "alignment": "Any (often Unprincipled/Good)",
+    "attribute_requirements": { "IQ": "12+", "ME": "12+" },
+    "occ_skills": [
+      "Lore: Faerie Folk",
+      "Identify Plants & Fruits",
+      "Wilderness Survival",
+      "Land Navigation",
+      "Animal Handling"
+    ],
+    "related_skills_rules": "Nature magic & rituals per class entry.",
+    "starting_equipment": "Travel gear, herbal kit.",
+    "armor": "Light/medium as allowed.",
+    "starting_armor_options": [
+      { "id": "soft_leather_10_20", "name": "Soft leather", "ar": 10, "sdc": 20 },
+      { "id": "studded_leather_13_38", "name": "Studded leather", "ar": 13, "sdc": 38 }
+    ],
+    "weapons": "Staff, sling, dagger; as allowed.",
+    "money": "Modest.",
+    "notes": "See Druid O.C.C."
+  },
+  {
+    "id": "Mercenary Warrior",
+    "name": "Mercenary Warrior",
+    "alignment": "Any",
+    "attribute_requirements": { "PS": "10+", "PE": "10+" },
+    "occ_skills": [
+      "Hand to Hand: Basic (upgradeable)",
+      "W.P.: Any (broad)",
+      "Military Etiquette / Tactics (GM)"
+    ],
+    "related_skills_rules": "Men at Arms selection list.",
+    "starting_equipment": "Travel gear; see merc equipment packages.",
+    "armor": "Varies by employer; leather/chain/plate.",
+    "starting_armor_options": [
+      { "id": "studded_leather_13_38", "name": "Studded leather", "ar": 13, "sdc": 38 },
+      { "id": "chain_mail_14_44", "name": "Chain mail", "ar": 14, "sdc": 44 },
+      { "id": "plate_chain_16_70", "name": "Plate & Chain", "ar": 16, "sdc": 70 }
+    ],
+    "weapons": "Broad selection; per employer.",
+    "money": "Wages; hazard pay; equipment discounts vary.",
+    "notes": "Armor options & penalties apply."
+  },
+  {
+    "id": "Soldier",
+    "name": "Soldier",
+    "alignment": "Any",
+    "attribute_requirements": { "PS": "10+", "PP": "10+" },
+    "occ_skills": [
+      "Military: Any (+10%)",
+      "W.P.: Any",
+      "Hand to Hand: Basic (upgradeable)"
+    ],
+    "related_skills_rules": "Secondary skills per levels.",
+    "starting_equipment": "Uniform, civilian clothing, boots, gloves, bedroll, backpack, two small sacks, water skin, two weeks' rations, tinder box.",
+    "armor": "Starts with chain mail (AR 14 SDC 44) or studded leather (AR 13 SDC 38).",
+    "starting_armor_options": [
+      { "id": "chain_mail_14_44", "name": "Chain mail", "ar": 14, "sdc": 44 },
+      { "id": "studded_leather_13_38", "name": "Studded leather", "ar": 13, "sdc": 38 }
+    ],
+    "weapons": "Small shield, dagger, and two weapons of choice (basic S.D.C.).",
+    "money": "Starts with 180 gold; plus salary/hazard pay.",
+    "notes": "Official equipment & money list."
+  },
+  {
+    "id": "Long Bowman",
+    "name": "Long Bowman",
+    "alignment": "Any",
+    "attribute_requirements": { "PS": "10+", "PP": "12+" },
+    "occ_skills": [
+      "Athletics (General)",
+      "Languages: Native 98% +2 of choice (+10% each)",
+      "Sniper",
+      "Wilderness Survival (+10%)",
+      "W.P. Archery (all bows)",
+      "W.P. Targeting",
+      "W.P. one of choice",
+      "Hand to Hand: Basic"
+    ],
+    "related_skills_rules": "Select 8 at L1; +2 at L3/L7/L10/L13; penalties in heavy armor.",
+    "starting_equipment": "Travel gear; bowmaking items (GM).",
+    "armor": "Prefers studded/chain/plate&leather/plate&chain; penalties in heavy armor.",
+    "starting_armor_options": [
+      { "id": "studded_leather_13_38", "name": "Studded leather", "ar": 13, "sdc": 38 },
+      { "id": "chain_mail_14_44", "name": "Chain mail", "ar": 14, "sdc": 44 }
+    ],
+    "weapons": "Longbow specialization; any W.P.",
+    "money": "Mercenary pay; premium rates at higher levels.",
+    "notes": "Armor penalties reduce rate of fire and strike bonus."
+  },
+  {
+    "id": "Knight",
+    "name": "Knight",
+    "alignment": "Any (often Good/Noble)",
+    "attribute_requirements": { "IQ": "10+", "PS": "12+", "PE": "12+" },
+    "occ_skills": ["Horsemanship: Knight","W.P.: Lance, Sword, Shield","Etiquette/Heraldry"],
+    "related_skills_rules": "Heavy armor penalties apply (see note).",
+    "starting_equipment": "Warhorse & tack (GM), noble gear.",
+    "armor": "Plate & Chain typically.",
+    "starting_armor_options": [
+      { "id": "plate_chain_16_70", "name": "Plate & Chain", "ar": 16, "sdc": 70 },
+      { "id": "full_plate_18_90", "name": "Full Plate", "ar": 18, "sdc": 90 }
+    ],
+    "weapons": "Lance, sword, mace; shield.",
+    "money": "Stipend/land.",
+    "notes": "Armor movement/skill penalties summarized; see Knights & Paladins."
+  },
+  {
+    "id": "Paladin",
+    "name": "Paladin",
+    "alignment": "Good only (Principled/Scrupulous)",
+    "attribute_requirements": { "IQ": "12+", "ME": "12+", "PE": "12+" },
+    "occ_skills": ["Horsemanship","W.P. Sword/Shield/Lance","Lore (Religion)"],
+    "related_skills_rules": "Holy powers per class entry.",
+    "starting_equipment": "Holy symbols, noble gear.",
+    "armor": "As Knight (heavy).",
+    "starting_armor_options": [
+      { "id": "plate_chain_16_70", "name": "Plate & Chain", "ar": 16, "sdc": 70 },
+      { "id": "full_plate_18_90", "name": "Full Plate", "ar": 18, "sdc": 90 }
+    ],
+    "weapons": "Lance, sword, mace, shield",
+    "money": "Stipends/donations.",
+    "notes": "See class for divine powers; armor penalties apply."
+  },
+  {
+    "id": "Ranger",
+    "name": "Ranger",
+    "alignment": "Any",
+    "attribute_requirements": { "IQ": "10+", "PE": "10+", "PP": "12+" },
+    "occ_skills": ["Land Navigation","Wilderness Survival","Tracking","W.P. (Bows/Blades)"],
+    "related_skills_rules": "Broad wilderness list.",
+    "starting_equipment": "Two sets of clothing, boots, bedroll, backpack, two small sacks, waterskin, 50 ft rope, lantern, flint & steel, two weeks' food.",
+    "armor": "Leathers or chain (prefer mobility).",
+    "starting_armor_options": [
+      { "id": "leather_12_30", "name": "Leather", "ar": 12, "sdc": 30 },
+      { "id": "studded_leather_13_38", "name": "Studded leather", "ar": 13, "sdc": 38 },
+      { "id": "chain_mail_14_44", "name": "Chain mail", "ar": 14, "sdc": 44 }
+    ],
+    "weapons": "Short Bow, knife, Short Sword",
+    "money": "Modest.",
+    "notes": "Armor & equipment lines listed in class."
+  },
+  {
+    "id": "Thief",
+    "name": "Thief",
+    "alignment": "Any (often Unprincipled/Anarchist)",
+    "attribute_requirements": { "IQ": "9+", "PP": "12+" },
+    "occ_skills": [
+      "Appraise Goods","Climb Walls (+5%)","Pick Locks (+10%)","Pick Pockets (+10%)","Prowl (+5%)",
+      "Streetwise (+5%)","W.P. Knife","W.P. 1 of choice","Hand to Hand: Basic"
+    ],
+    "related_skills_rules": "Rogue heavy; limited military.",
+    "starting_equipment": "Thief tools, dark clothes, soft boots.",
+    "armor": "Light (leathers).",
+    "starting_armor_options": [
+      { "id": "soft_leather_10_20", "name": "Soft leather", "ar": 10, "sdc": 20 },
+      { "id": "padded_11_26", "name": "Padded leather", "ar": 11, "sdc": 26 }
+    ],
+    "weapons": "Knives, short blades, sling.",
+    "money": "Ill-gotten or guild wages.",
+    "notes": "Full Thief O.C.C. skill list inferred."
+  },
+  {
+    "id": "Assassin",
+    "name": "Assassin",
+    "alignment": "Any Non-Good (often Evil/Anarchist)",
+    "attribute_requirements": { "IQ": "10+", "PP": "12+" },
+    "occ_skills": ["Disguise (+5%)","Intelligence (+5%)","Prowl (+10%)","Poisoning (GM)","W.P. (varies by style)"],
+    "related_skills_rules": "Martial arts available (evil); stealth focus.",
+    "starting_equipment": "Dark clothes, poison kit (if used), climbing gear.",
+    "armor": "Light; favors mobility.",
+    "starting_armor_options": [
+      { "id": "soft_leather_10_20", "name": "Soft leather", "ar": 10, "sdc": 20 },
+      { "id": "leather_12_30", "name": "Leather", "ar": 12, "sdc": 30 }
+    ],
+    "weapons": "Daggers, garrote, short bow, etc.",
+    "money": "Contract fees.",
+    "notes": "Assassin O.C.C. section referenced."
+  },
+  {
+    "id": "Wizard",
+    "name": "Wizard",
+    "alignment": "Any",
+    "attribute_requirements": { "IQ": "10+" },
+    "occ_skills": [
+      "Languages: Native Tongue 98% +2 of choice (+20% each)",
+      "Recognize Enchantment (35% +5%/lvl)",
+      "Recognize Magic (20% +5%/lvl)"
+    ],
+    "related_skills_rules": "Four secondary at L1; +2 at L2/L5/L7/L10/L13.",
+    "starting_equipment": "Clothes, robe/cloak, boots, soft gloves, belt, bedroll, backpack, purse/satchel, 2 small sacks, waterskin, parchment, notebook, quills, ink, graphite, chalk, candles, cross, mirror, tinder box.",
+    "armor": "Starts with soft leather (AR 10, SDC 20).",
+    "starting_armor_options": [
+      { "id": "soft_leather_10_20", "name": "Soft leather", "ar": 10, "sdc": 20 }
+    ],
+    "weapons": "Knife + one of choice (basic S.D.C.).",
+    "money": "Starts with 140 gold; more via jobs.",
+    "notes": "Wizard abilities & common knowledge spells; cannot create scrolls."
+  },
+  {
+    "id": "Warlock",
+    "name": "Warlock",
+    "alignment": "Any (elementals often anarchist)",
+    "attribute_requirements": { "IQ": "6+", "ME": "10+ (one element) / IQ 12 & ME 14 (two elements)" },
+    "occ_skills": [
+      "Speaks two additional languages (+10%)",
+      "Literacy in one language (+10%)",
+      "Lore: Demon & Monster (+10%)",
+      "Lore: Faerie Folk (+5%)",
+      "Land Navigation (+10%)",
+      "Wilderness Survival (+10%)",
+      "W.P.: Two of choice",
+      "Hand to Hand: Basic"
+    ],
+    "related_skills_rules": "Select 8 at L1; +1 at L3/L6/L9/L12.",
+    "starting_equipment": "Travel gear.",
+    "armor": "Light to medium; restrictions by GM.",
+    "starting_armor_options": [
+      { "id": "leather_12_30", "name": "Leather", "ar": 12, "sdc": 30 },
+      { "id": "studded_leather_13_38", "name": "Studded leather", "ar": 13, "sdc": 38 }
+    ],
+    "weapons": "Any except Lance and Long Bow.",
+    "money": "Varies.",
+    "notes": "Elemental-linked magic; power words per element; spell selection each level."
+  },
+  {
+    "id": "Diabolist",
+    "name": "Diabolist",
+    "alignment": "Any",
+    "attribute_requirements": { "IQ": "12+" },
+    "occ_skills": [
+      "Art (+10%)","Cryptography (+20%)",
+      "Languages: Native Tongue 98% +3 of choice (+20%)",
+      "Literacy: Elven 98% + two of choice (+20%)",
+      "Lore: one of choice (+15%)","Mathematics: Basic (+25%)",
+      "Sculpt/Whittling (+20%)","W.P. one of choice"
+    ],
+    "related_skills_rules": "Select 7 at L1; +1 at L3/L6/L9/L12.",
+    "starting_equipment": "Cloak/cape, travel gear, vials, wax, gold/silver/sawdust, etc.",
+    "armor": "Light (robes/leather).",
+    "starting_armor_options": [
+      { "id": "soft_leather_10_20", "name": "Soft leather", "ar": 10, "sdc": 20 }
+    ],
+    "weapons": "One W.P. of choice.",
+    "money": "Varies.",
+    "notes": "Ward strength scaling; energizing wards with PPE; impervious to own wards; reads scrolls."
+  },
+  {
+    "id": "Summoner",
+    "name": "Summoner",
+    "alignment": "Any (often Unprincipled/Anarchist/Evil)",
+    "attribute_requirements": { "IQ": "10+", "ME": "14+" },
+    "occ_skills": [
+      "Gemology (+15%)","History (+15%)",
+      "Languages: Native Tongue 98% +2 of choice (+20% each)",
+      "Literacy: Two of choice (+20%)",
+      "Lore: Demons & Monsters (+20%)",
+      "Lore: one of choice (+15%)",
+      "Mathematics: Basic (+20%)","Preserve Food (+15%)",
+      "W.P.: Two of choice","Hand to Hand: Basic (upgrade options)"
+    ],
+    "related_skills_rules": "Select 8 at L1; +1 at L3/L6/L9/L12.",
+    "starting_equipment": "Travel gear; circle components as acquired.",
+    "armor": "Light; avoids heavy.",
+    "starting_armor_options": [
+      { "id": "soft_leather_10_20", "name": "Soft leather", "ar": 10, "sdc": 20 },
+      { "id": "leather_12_30", "name": "Leather", "ar": 12, "sdc": 30 }
+    ],
+    "weapons": "Any (except a few exotics per GM).",
+    "money": "Varies; often via patrons.",
+    "notes": "Expert in Circle Magic; learns/deciphers circles."
+  }
+]

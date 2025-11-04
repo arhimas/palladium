@@ -1,0 +1,46 @@
+[
+  { "id": "backpack", "name": "Backpack (mochila)", "category": "Containers", "weight_lbs": 3, "cost_gp": 5, "notes": "Capacidad media; correas." },
+  { "id": "belt_pouch", "name": "Belt Pouch (bolsita)", "category": "Containers", "weight_lbs": 0.5, "cost_gp": 1, "notes": "Monedas y objetos pequeños." },
+  { "id": "sack_small", "name": "Small Sack", "category": "Containers", "weight_lbs": 0.5, "cost_gp": 1, "notes": "Saco pequeño de tela." },
+  { "id": "sack_large", "name": "Large Sack", "category": "Containers", "weight_lbs": 1, "cost_gp": 2, "notes": "Saco grande." },
+  { "id": "waterskin", "name": "Waterskin (odre)", "category": "Containers", "weight_lbs": 1, "cost_gp": 2, "notes": "1-2 litros; cuero." },
+
+  { "id": "rations_week", "name": "Rations (1 week)", "category": "Provisions", "weight_lbs": 7, "cost_gp": 5, "notes": "Raciones secas para 7 días." },
+  { "id": "rations_day", "name": "Rations (1 day)", "category": "Provisions", "weight_lbs": 1, "cost_gp": 1, "notes": "Ración de campaña diaria." },
+
+  { "id": "rope_hemp_50", "name": "Rope (hemp) 50 ft", "category": "Tools", "weight_lbs": 10, "cost_gp": 1, "notes": "Cáñamo; 15 m aprox." },
+  { "id": "grappling_hook", "name": "Grappling Hook", "category": "Tools", "weight_lbs": 4, "cost_gp": 8, "notes": "Para escalar/superar muros." },
+  { "id": "pitons_10", "name": "Pitons (x10)", "category": "Tools", "weight_lbs": 3, "cost_gp": 3, "notes": "Anclajes para escalada." },
+  { "id": "hammer", "name": "Hammer", "category": "Tools", "weight_lbs": 2, "cost_gp": 2, "notes": "Clavar pitones; herramienta." },
+  { "id": "spikes_10", "name": "Spikes (x10)", "category": "Tools", "weight_lbs": 5, "cost_gp": 3, "notes": "Estacas para puertas/trampas." },
+  { "id": "shovel", "name": "Shovel", "category": "Tools", "weight_lbs": 6, "cost_gp": 5, "notes": "Cavar." },
+  { "id": "crowbar", "name": "Crowbar", "category": "Tools", "weight_lbs": 5, "cost_gp": 5, "notes": "Palanca; romper/forzar." },
+
+  { "id": "torch_6", "name": "Torches (x6)", "category": "Lighting", "weight_lbs": 6, "cost_gp": 1, "notes": "Combustión; humo." },
+  { "id": "lantern_hooded", "name": "Lantern (hooded)", "category": "Lighting", "weight_lbs": 2, "cost_gp": 7, "notes": "Direccional; menos humo." },
+  { "id": "oil_flask", "name": "Oil Flask", "category": "Lighting", "weight_lbs": 1, "cost_gp": 1, "notes": "Para lámparas/antorchas." },
+  { "id": "candles_10", "name": "Candles (x10)", "category": "Lighting", "weight_lbs": 1, "cost_gp": 1, "notes": "Iluminación mínima." },
+  { "id": "flint_steel", "name": "Flint & Steel", "category": "Lighting", "weight_lbs": 0.5, "cost_gp": 2, "notes": "Hacer fuego; chispa." },
+
+  { "id": "bedroll", "name": "Bedroll", "category": "Camping", "weight_lbs": 5, "cost_gp": 1, "notes": "Manta/enrollable." },
+  { "id": "tent_small", "name": "Tent (small)", "category": "Camping", "weight_lbs": 12, "cost_gp": 10, "notes": "Para 1-2 personas." },
+  { "id": "tent_large", "name": "Tent (large)", "category": "Camping", "weight_lbs": 20, "cost_gp": 20, "notes": "Para 3-4 personas." },
+  { "id": "blanket_wool", "name": "Blanket (wool)", "category": "Camping", "weight_lbs": 3, "cost_gp": 2, "notes": "Abrigo extra." },
+  { "id": "cooking_kit", "name": "Cooking Kit", "category": "Camping", "weight_lbs": 6, "cost_gp": 5, "notes": "Cazuela/utensilios." },
+
+  { "id": "fishing_kit", "name": "Fishing Kit", "category": "Kits", "weight_lbs": 2, "cost_gp": 3, "notes": "Sedal, anzuelos." },
+  { "id": "healers_kit", "name": "Healer's Kit", "category": "Kits", "weight_lbs": 3, "cost_gp": 20, "notes": "Vendas, ungüentos básicos." },
+  { "id": "lockpicks", "name": "Lockpicks", "category": "Kits", "weight_lbs": 1, "cost_gp": 25, "notes": "Ganzúas; usos de ladrón." },
+  { "id": "disguise_kit", "name": "Disguise Kit", "category": "Kits", "weight_lbs": 3, "cost_gp": 30, "notes": "Maquillaje/atuendo." },
+
+  { "id": "mirror_steel", "name": "Mirror (steel)", "category": "Misc", "weight_lbs": 0.5, "cost_gp": 5, "notes": "Esquinas/gestos/ señales." },
+  { "id": "chalk_10", "name": "Chalk (x10)", "category": "Misc", "weight_lbs": 0.5, "cost_gp": 1, "notes": "Marcar rutas/señales." },
+  { "id": "ink_quill", "name": "Ink & Quill", "category": "Misc", "weight_lbs": 0.5, "cost_gp": 8, "notes": "Escritura." },
+  { "id": "paper_10", "name": "Paper (x10)", "category": "Misc", "weight_lbs": 0.5, "cost_gp": 5, "notes": "Hojas para notas/mapas." },
+  { "id": "caltrops_20", "name": "Caltrops (x20)", "category": "Misc/Traps", "weight_lbs": 5, "cost_gp": 8, "notes": "Daño y ralentiza pies descalzos." },
+  { "id": "bear_trap", "name": "Bear Trap", "category": "Misc/Traps", "weight_lbs": 20, "cost_gp": 50, "notes": "Trampa de dientes; sujeta pierna." },
+
+  { "id": "common_clothes", "name": "Common Clothes", "category": "Clothing", "weight_lbs": 3, "cost_gp": 2, "notes": "Ropa sencilla." },
+  { "id": "travelers_clothes", "name": "Traveler's Clothes", "category": "Clothing", "weight_lbs": 4, "cost_gp": 8, "notes": "Ropa resistente, botas." },
+  { "id": "winter_cloak", "name": "Winter Cloak", "category": "Clothing", "weight_lbs": 3, "cost_gp": 6, "notes": "Capa para climas fríos." }
+]

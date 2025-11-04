@@ -1,0 +1,3 @@
+export const DISEASES_MAP = {
+  swamp_fever: { name: "Fiebre del pantano", type: "enfermedad", effect: "Debilita P.E. temporalmente", save: "ver libro", duration: "variable" }
+};
