@@ -1,6 +1,6 @@
 {
   "Priest of Light": {
-    "name": "Priest of Light",
+    "name": "Clérigo de la Luz",
     "hand2hand": "Basic",
     "attribute_requirements": {
       "ME": "10"
@@ -31,7 +31,7 @@
     "notes": "Travelling/Temple Priest template; turning/holy powers per deity; see Priests section."
   },
   "Priest of Darkness": {
-    "name": "Priest of Darkness",
+    "name": "Clérigo de la Oscuridad",
     "hand2hand": "Basic",
     "attribute_requirements": {
       "ME": "10"
@@ -62,7 +62,7 @@
     "notes": "See Priests of Darkness O.C.C. entry."
   },
   "Warrior Monk": {
-    "name": "Warrior Monk",
+    "name": "Monje Guerrero",
     "hand2hand": "Martial Arts",
     "attribute_requirements": {
       "PP": "11",
@@ -95,7 +95,7 @@
     "notes": "See Warrior Monk section for full skill list."
   },
   "Druid": {
-    "name": "Druid",
+    "name": "Druida",
     "hand2hand": "Basic",
     "attribute_requirements": {
       "IQ": "9",
@@ -125,7 +125,7 @@
     "notes": "Además de 6 Related en nivel 1, añade 1 Related adicional en niveles 3, 6, 9 y 12."
   },
   "Mercenary Fighter": {
-    "name": "Mercenary Fighter",
+    "name": "Luchador Mercenario",
     "hand2hand": "Expert",
     "attribute_requirements": {
       "PS": "10",
@@ -153,7 +153,7 @@
     "notes": "Armor options & penalties apply."
   },
   "Soldier": {
-    "name": "Soldier",
+    "name": "Soldado",
     "hand2hand": "Basic",
     "attribute_requirements": {
       "PS": "10",
@@ -180,7 +180,7 @@
     "notes": "Official equipment & money list."
   },
   "Long Bowman": {
-    "name": "Long Bowman",
+    "name": "Arquero",
     "hand2hand": "Basic",
     "attribute_requirements": {
       "PS": "10",
@@ -206,7 +206,7 @@
     "notes": "Armor penalties reduce rate of fire and strike bonus."
   },
   "Knight": {
-    "name": "Knight",
+    "name": "Caballero",
     "hand2hand": "Expert",
     "attribute_requirements": {
       "PS": "12"
@@ -268,7 +268,7 @@
     "notes": "See class for divine powers; armor penalties apply."
   },
   "Ranger": {
-    "name": "Ranger",
+    "name": "Montaraz",
     "hand2hand": "Basic",
     "attribute_requirements": {
       "PE": "13"

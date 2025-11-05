@@ -137,6 +137,7 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
   const [char,setChar] = useState(initial || emptyChar())
   const [rerollsLeft, setRerollsLeft] = useState(2)
   const [occArmorOptions, setOccArmorOptions] = useState([])
+  const [occWeaponOptions, setOccWeaponOptions] = useState([]) // <-- NUEVO: armas permitidas por la O.C.C.
   const [editMode, setEditMode] = useState(!initial) // si es nuevo, edición; si viene inicial, lo dejamos editable hasta Guardar
 
   // Versión para forzar re-evaluación cuando ALL_SKILLS se actualiza por loadSkillsJson()
@@ -157,6 +158,16 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
 
   const selectedRace = races.find(r => r.id === char.race)
   const selectedOcc  = occs.find(x => x.id === char.occ)
+  // Normalizar catálogos: si vienen como objeto (map), convertir a array
+  // Normalizar catálogos: si vienen como objeto (map), convertir a array incluyendo el id (clave)
+  const armorCatalog = Array.isArray(armor)
+    ? armor
+    : (armor ? Object.entries(armor).map(([id, v]) => ({ id, ...v })) : [])
+
+  const weaponsCatalog = Array.isArray(weapons)
+    ? weapons
+    : (weapons ? Object.entries(weapons).map(([id, v]) => ({ id, ...v })) : [])
+
 
   const onSelectRace = (raceId)=> {
     const raceObj = races.find(r => r.id === raceId)
@@ -252,35 +263,91 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
       setChar(c=>({...c, armorId:id, ar:fromOcc.ar, sdc:fromOcc.sdc, locked:{...(c.locked||{}), armor:true} }))
       return
     }
-    const item = (armor||[]).find(a=>a.id===id)
+    const item = (armorCatalog||[]).find(a=>a.id===id)
     if (item){
       setChar(c=>({...c, armorId:id, ar:Number(item.ar||0), sdc:Number(item.sdc||0), locked:{...(c.locked||{}), armor:true} }))
     }
   }
 
-  const onSelectOcc = (occId)=> {
+    const onSelectOcc = (occId)=> {
     const occ = occs.find(x=>x.id===occId)
 
-    // Opciones de armadura
-    let occOpts = Array.isArray(occ?.starting_armor_options)
-      ? occ.starting_armor_options.map(o => ({ id:o.id || o, name:o.name || String(o), ar:Number(o.ar||0), sdc:Number(o.sdc||0) }))
-      : []
-    if (occOpts.length === 0) occOpts = parseArmorOptionsFromOcc(occ?.armor)
-    setOccArmorOptions(occOpts)
+    // --- ARMADURAS: normalizamos ids desde la O.C.C. y cruzamos con catálogo real ---
+    let allowedArmorIds = []
+    if (Array.isArray(occ?.starting_armor_options)) {
+      allowedArmorIds = occ.starting_armor_options.map(a => (typeof a === 'string') ? a : (a.id || String(a)))
+        .filter(Boolean).map(x => String(x))
+    }
 
+    let filteredArmorOptions = []
+    if (allowedArmorIds.length > 0) {
+      filteredArmorOptions = (armorCatalog || []).filter(ar => allowedArmorIds.includes(String(ar.id)))
+        .map(a => ({ id: a.id, name: a.name, ar: Number(a.ar||0), sdc: Number(a.sdc||0) }))
+    }
+
+    if (filteredArmorOptions.length === 0) {
+      if (Array.isArray(occ?.starting_armor_options)) {
+        filteredArmorOptions = occ.starting_armor_options
+          .map(o => (typeof o === 'string' ? { id:o, name:o } : o))
+          .map(o=> ({ id: o.id || o, name: o.name || String(o.id||o), ar: Number(o.ar||0), sdc: Number(o.sdc||0) }))
+      } else {
+        const parsed = parseArmorOptionsFromOcc(occ?.armor)
+        filteredArmorOptions = parsed
+      }
+    }
+    setOccArmorOptions(filteredArmorOptions)
+
+    // --- ARMAS: normalizamos candidatos y cruzamos con catálogo real ---
+    const allowedWeaponCandidates = []
+    if (Array.isArray(occ?.starting_weapon_ids)) {
+      occ.starting_weapon_ids.forEach(w => allowedWeaponCandidates.push(String(w)))
+    }
+    if (Array.isArray(occ?.starting_weapons)) {
+      occ.starting_weapons.forEach(w => allowedWeaponCandidates.push(String(w)))
+    }
+
+    const norm = s => String(s||'').trim().toLowerCase()
+    let filteredWeaponObjs = []
+    if (allowedWeaponCandidates.length > 0) {
+      const candSet = new Set(allowedWeaponCandidates.map(c => norm(c)))
+      filteredWeaponObjs = (weaponsCatalog || []).filter(w => {
+        return candSet.has(norm(w.id)) || candSet.has(norm(w.name))
+      })
+    }
+
+    if (filteredWeaponObjs.length === 0 && Array.isArray(occ?.starting_weapons)) {
+      const maybeIds = occ.starting_weapons.map(w => typeof w === 'string' ? null : (w.id || null)).filter(Boolean)
+      if (maybeIds.length > 0) {
+        filteredWeaponObjs = (weaponsCatalog || []).filter(w => maybeIds.includes(w.id))
+      }
+    }
+    setOccWeaponOptions(filteredWeaponObjs)
+
+    // --- Preparar startingWeaponIds (para precarga de ataques) ---
+    let startingWeaponIds = []
+    if (filteredWeaponObjs.length > 0) {
+      startingWeaponIds = filteredWeaponObjs.map(w => w.id)
+    } else if (Array.isArray(occ?.starting_weapon_ids)) {
+      startingWeaponIds = occ.starting_weapon_ids.filter(id => (weaponsCatalog||[]).some(w => w.id === id))
+    } else if (Array.isArray(occ?.starting_weapons)) {
+      occ.starting_weapons.forEach(item => {
+        const itemNorm = norm(item)
+        const found = (weaponsCatalog||[]).find(w => norm(w.id) === itemNorm || norm(w.name) === itemNorm)
+        if (found) startingWeaponIds.push(found.id)
+      })
+    }
+
+    const nextAttacks = startingWeaponIds.length ? startingWeaponIds : (char.attacks||[])
+    const nextAttacksAllowed = Math.max(2, Number(occ?.attacksAllowed||0) || 2, nextAttacks.length)
+
+    // --- Auto-selección de armadura si sólo hay una opción ---
     let nextArmorId = char.armorId
     let nextAR = char.ar
     let nextSDC = char.sdc
-    if (occOpts.length === 1){
-      const one = occOpts[0]; nextArmorId = one.id; nextAR = one.ar; nextSDC = one.sdc
+    if (filteredArmorOptions.length === 1){
+      const one = filteredArmorOptions[0]
+      nextArmorId = one.id; nextAR = one.ar; nextSDC = one.sdc
     }
-
-    // Precarga armas por starting_weapon_ids si existen
-    const startingWeaponIds = Array.isArray(occ?.starting_weapon_ids)
-      ? occ.starting_weapon_ids.filter(id => (weapons||[]).some(w => w.id === id))
-      : []
-    const nextAttacks = startingWeaponIds.length ? startingWeaponIds : (char.attacks||[])
-    const nextAttacksAllowed = Math.max(2, Number(occ?.attacksAllowed||0) || 2, nextAttacks.length)
 
     setChar(c=>({ ...c, occ: occId, armorId: nextArmorId, ar: nextAR, sdc: nextSDC, attacks: nextAttacks, attacksAllowed: nextAttacksAllowed }))
   }
@@ -316,7 +383,7 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
   const attacksRemaining = Math.max(0, (char.attacksAllowed||0) - (char.attacks?.length || 0))
   const armorOptions = (occArmorOptions && occArmorOptions.length > 0)
     ? occArmorOptions
-    : (armor||[]).map(a=>({ id:a.id, name:a.name, ar:Number(a.ar||0), sdc:Number(a.sdc||0) }))
+    : (armorCatalog || []).map(a=>({ id:a.id, name:a.name, ar:Number(a.ar||0), sdc:Number(a.sdc||0) }))
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-start justify-center p-6 z-50">
@@ -351,7 +418,7 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
           </div>
           {/* Nivel del personaje */}
           <div className="flex items-end gap-3">
-            <div className="text-xs">Nivel del personaje</div>
+            <div style={{fontSize: '22px', fontWeight: 'bold'}}>Nivel del personaje</div>
             <div className="text-2xl font-bold px-4 py-1 bg-gray-100 rounded">{char.level || 1}</div>
           </div>
         </div>
@@ -460,7 +527,7 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
               </thead>
               <tbody>
                 {attackRows.map((wId,i)=>{
-                  const w = (weapons||[]).find(x=>x.id===wId)
+                  const w = (weaponsCatalog||[]).find(x=>x.id===wId)
                   const ppBonus = attrGenericBonus(char.attributes['P.P.']||10)
                   const psBns   = psDamageBonus(char.attributes['P.S.']||10)
                   const weaponLocked = !!(char.locked?.weapons?.[i]) || (!!wId && i < (char.attacks?.length||0))
@@ -472,14 +539,14 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
                   return (
                     <tr key={i} className="border-t">
                       <td className="p-0">
-                        <select
-                          value={wId||''}
-                          onChange={e=>onWeaponChange(i,e.target.value)}
-                          className="border p-0 rounded w-full"
-                        >
-                          <option value="">-- arma --</option>
-                          {(weapons||[]).map(ww=> <option key={ww.id} value={ww.id}>{ww.name}</option>)}
-                        </select>
+                      <select
+                        value={wId||''}
+                        onChange={e=>onWeaponChange(i,e.target.value)}
+                        className="border p-0 rounded w-full"
+                      >
+                        <option value="">-- arma --</option>
+                        {( (occWeaponOptions && occWeaponOptions.length > 0) ? occWeaponOptions : (weaponsCatalog || []) ).map(ww=> <option key={ww.id} value={ww.id}>{ww.name}</option>)}
+                      </select>
                       </td>
                       <td className="p-0 text-center">{char.attacksAllowed || 0}</td>
                       <td className="p-0 text-center">{baseDamage}</td>

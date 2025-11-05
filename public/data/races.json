@@ -1,7 +1,7 @@
 [
   {
     "id": "human",
-    "name": "Human",
+    "name": "Humano",
     "aliases": [
       "Humans",
       "Human Beings",
@@ -66,7 +66,7 @@
   },
   {
     "id": "elf",
-    "name": "Elf",
+    "name": "Elfo",
     "aliases": [
       "Elves",
       "Elfo"
@@ -131,7 +131,7 @@
   },
   {
     "id": "dwarf",
-    "name": "Dwarf",
+    "name": "Enano",
     "aliases": [
       "Dwarves",
       "Enano"
@@ -200,7 +200,7 @@
   },
   {
     "id": "gnome",
-    "name": "Gnome",
+    "name": "Gnomo",
     "aliases": [
       "Gnomes",
       "Gnomo"
@@ -264,7 +264,7 @@
   },
   {
     "id": "troglodyte",
-    "name": "Troglodyte",
+    "name": "Troglodita",
     "aliases": [
       "Troglodytes",
       "Trog"
@@ -530,7 +530,7 @@
   },
   {
     "id": "orc",
-    "name": "Orc",
+    "name": "Orco",
     "aliases": [
       "Orcs"
     ],
@@ -592,7 +592,7 @@
   },
   {
     "id": "ogre",
-    "name": "Ogre",
+    "name": "Ogro",
     "aliases": [
       "Ogres"
     ],
@@ -710,7 +710,7 @@
   },
   {
     "id": "changeling",
-    "name": "Changeling",
+    "name": "Cambiaformas",
     "aliases": [
       "Changelings"
     ],
