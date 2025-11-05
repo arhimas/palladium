@@ -58,8 +58,7 @@ let ALL_SKILLS = []
  *  - array JSON: [ { id, name, base, bonus }, ... ]
  *  - objeto mapeado: { key: { id, name, base_skill, bonus_lvl }, ... }
  *
- * NOTA: esta función NO hace re-render por sí sola; cuando cargue emite un evento
- * "allSkillsUpdated" en window para que los componentes puedan reaccionar.
+ * Cuando carga emite un evento "allSkillsUpdated" para que los componentes reaccionen.
  */
 async function loadSkillsJson(){
   const candidates = [
@@ -148,6 +147,7 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
     return () => window.removeEventListener('allSkillsUpdated', h)
   }, [])
 
+
   useEffect(() => {
     if (initial) { setChar(initial); setRerollsLeft(2); setEditMode(false) }
     else { setChar(emptyChar()); setRerollsLeft(2); setEditMode(true) }
@@ -177,8 +177,13 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
   const [selectedSkills, setSelectedSkills] = useState([])
 
   // Cargar por defecto según occ_skills de la O.C.C.
+  // Dependemos también de skillsVersion para que, si ALL_SKILLS se carga asíncronamente,
+  // volvamos a calcular qué occ_skills son válidas y marcar los checks.
   useEffect(()=>{
-    if (!selectedOcc) return
+    if (!selectedOcc) {
+      setSelectedSkills([]) // limpiar si no hay occ seleccionada
+      return
+    }
     // occ_skills puede venir como [{id: value}, ...] o strings; tomamos la clave
     const occIds = (selectedOcc.occ_skills || [])
       .map(s => typeof s === 'string' ? s : Object.keys(s||{})[0])
@@ -187,7 +192,7 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
     const allIds = new Set(ALL_SKILLS.map(s=>s.id))
     const valid = occIds.filter(id => allIds.has(id))
     setSelectedSkills(valid)
-  }, [char.occ])
+  }, [char.occ, skillsVersion])
 
   // skills para gastar (contador)
   const skillsToSpend = Number(selectedOcc?.number_related_skills || 0)
@@ -332,7 +337,7 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
           </div>
           <div>
             <label className="block text-xs">Profesión (O.C.C.)</label>
-            <select value={char.occ} onChange={e=>onSelectOcc(e.target.value)} className="border p-0 rounded w-full">
+            <select value={char.occ} onChange={e=>onSelectOcc(e.target.value)} onFocus={refreshers?.occs} className="border p-0 rounded w-full">
               <option value="">--</option>
               {occs.map(o=> <option key={o.id} value={o.id}>{o.name}</option>)}
             </select>
@@ -604,8 +609,66 @@ export default function PalladiumApp(){
   const [equip,setEquip] = useState([])
   const [armor,setArmor] = useState([])
 
+
+  /**
+   * loadProfessionsJson(setter): intenta cargar profesiones desde varios paths posibles.
+   * Convierte mapas a arrays si es necesario y llama al setter con el array resultante.
+   */
+  async function loadProfessionsJson(setter){
+    const candidates = [
+      '/data/professionsMap.json',
+      '/data/professionsMap.js',
+      '/data/professions.json',
+      '/professionsMap.json',
+      '/professions.json'
+    ]
+    for(const path of candidates){
+      try {
+        const r = await fetch(`${path}?ts=${Date.now()}`)
+        if(!r.ok) continue
+        const js = await r.json()
+        // Si es un array con id -> usar directo
+        if(Array.isArray(js) && js.length > 0 && js[0].id){
+          setter(js)
+          window.dispatchEvent(new Event('professionsUpdated'))
+          console.log('Loaded professions array from', path)
+          return
+        }
+        // Si es un objeto (map) -> convertir a array
+        if(js && typeof js === 'object' && !Array.isArray(js)){
+          const arr = Object.keys(js).map(k=>{
+            const v = js[k] || {}
+            // asegurarnos de normalizar id y campos útiles
+            const id = (v.id || k).toString()
+            const name = v.name || k
+            // conservar occ_skills y number_related_skills si existen
+            const occ_skills = v.occ_skills || v.occSkills || v.occ || []
+            const number_related_skills = v.number_related_skills || v.numberRelatedSkills || v.number_related_skills || 0
+            return { id, name, ...v, occ_skills, number_related_skills }
+          })
+          setter(arr)
+          window.dispatchEvent(new Event('professionsUpdated'))
+          console.log('Loaded professions map from', path)
+          return
+        }
+      } catch(e){
+        // ignore and try next
+      }
+    }
+    // si nada, dejar vacío
+    setter([])
+    console.warn('No professions JSON found in any candidate path')
+  }
+
+
+
   const refreshCatalog = async (name, setter) => {
     try {
+      if (name === 'professions') {
+        // usar el loader que prueba varios nombres/rutas
+        await loadProfessionsJson(setter)
+        return
+      }
       const r = await fetch(`/data/${name}.json?ts=${Date.now()}`)
       if (!r.ok) throw new Error('fetch fail')
       const js = await r.json()
@@ -632,10 +695,10 @@ export default function PalladiumApp(){
     ]
     init.forEach(([n,setter]) => { refreshCatalog(n, setter) })
 
-    // Cargar el JSON de skills (intenta varios nombres/rutas)
+    // lanzar la carga de skills desde public (intenta varios nombres)
     ;(async () => {
       await loadSkillsJson()
-      // no hace falta setState aquí porque CharacterEditor escucha 'allSkillsUpdated'
+      // CharacterEditor y otros escuchan 'allSkillsUpdated' si necesitan reaccionar
     })()
   }, [])
 

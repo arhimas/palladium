@@ -91,7 +91,7 @@
       "quarterstaff",
       "short_sword"
     ],
-    "money": "Sparse.",
+    "money": "50",
     "notes": "See Warrior Monk section for full skill list."
   },
   "Druid": {
@@ -121,7 +121,7 @@
       "dagger",
       "quarterstaff"
     ],
-    "money": "Modest.",
+    "money": "50",
     "notes": "Además de 6 Related en nivel 1, añade 1 Related adicional en niveles 3, 6, 9 y 12."
   },
   "Mercenary Fighter": {
@@ -149,7 +149,7 @@
       "dagger",
       "broadsword"
     ],
-    "money": "Wages; hazard pay; equipment discounts vary.",
+    "money": "50",
     "notes": "Armor options & penalties apply."
   },
   "Soldier": {
@@ -176,7 +176,7 @@
       "Small shield",
       "two weapons of choice (basic S.D.C.)."
     ],
-    "money": "Starts with 180 gold; plus salary/hazard pay.",
+    "money": "50",
     "notes": "Official equipment & money list."
   },
   "Long Bowman": {
@@ -202,7 +202,7 @@
       "dagger",
       "longbow"
     ],
-    "money": "Mercenary pay; premium rates at higher levels.",
+    "money": "50",
     "notes": "Armor penalties reduce rate of fire and strike bonus."
   },
   "Knight": {
@@ -232,7 +232,7 @@
       "mace",
       "shield"
     ],
-    "money": "Stipend/land.",
+    "money": "50",
     "notes": "Armor movement/skill penalties summarized; see Knights & Paladins."
   },
   "Paladin": {
@@ -264,7 +264,7 @@
       "mace",
       "shield"
     ],
-    "money": "Stipends/donations.",
+    "money": "50",
     "notes": "See class for divine powers; armor penalties apply."
   },
   "Ranger": {
@@ -293,7 +293,7 @@
       "bow",
       "spear"
     ],
-    "money": "Modest plus bounties.",
+    "money": "50",
     "notes": "Classic wilderness toolkit and tracking focus."
   }
 }
