@@ -1,148 +1,34 @@
-{
-  "SKILLS": {
-    "language_other": {
-      "id": "language_other",
-      "name": "Language: Other",
-      "base_skill": 50,
-      "bonus_lvl": 3
-    },
-    "literacy": {
-      "id": "literacy",
-      "name": "Literacy",
-      "base_skill": 30,
-      "bonus_lvl": 5
-    },
-    "hand_work": {
-      "id": "hand_work",
-      "name": "Hand Work",
-      "base_skill": 35,
-      "bonus_lvl": 5
-    },
-    "dancing": {
-      "id": "dancing",
-      "name": "Dancing",
-      "base_skill": 35,
-      "bonus_lvl": 5
-    },
-    "singing": {
-      "id": "singing",
-      "name": "Singing",
-      "base_skill": 35,
-      "bonus_lvl": 5
-    },
-    "detection": {
-      "id": "Detection",
-      "name": "Detection",
-      "base_skill": 30,
-      "bonus_lvl": 5
-    },
-    "disguise": {
-      "id": "disguise",
-      "name": "Disguise",
-      "base_skill": 25,
-      "bonus_lvl": 5
-    },
-    "pick_locks": {
-      "id": "pick_locks",
-      "name": "Pick Locks",
-      "base_skill": 25,
-      "bonus_lvl": 5
-    },
-    "pick_pockets": {
-      "id": "pick_pockets",
-      "name": "Pick Pockets",
-      "base_skill": 25,
-      "bonus_lvl": 5
-    },
-    "first_aid": {
-      "id": "first_aid",
-      "name": "First Aid",
-      "base_skill": 45,
-      "bonus_lvl": 5
-    },
-    "strategy": {
-      "id": "strategy",
-      "name": "Strategy",
-      "base_skill": 20,
-      "bonus_lvl": 5
-    },
-    "athletics": {
-      "id": "athletics",
-      "name": "Athletics",
-      "base_skill": 30,
-      "bonus_lvl": 5
-    },
-    "climbing": {
-      "id": "climbing",
-      "name": "Climbing",
-      "base_skill": 40,
-      "bonus_lvl": 5
-    },
-    "swimming": {
-      "id": "swimming",
-      "name": "Swimming",
-      "base_skill": 40,
-      "bonus_lvl": 5
-    },
-    "streetwise": {
-      "id": "streetwise",
-      "name": "Streetwise",
-      "base_skill": 24,
-      "bonus_lvl": 4
-    },
-    "use_recognize_poison": {
-      "id": "use_recognize_poison",
-      "name": "Use/Recognize Poison",
-      "base_skill": 26,
-      "bonus_lvl": 4
-    },
-    "astronomy": {
-      "id": "astronomy",
-      "name": "Astronomy",
-      "base_skill": 25,
-      "bonus_lvl": 5
-    },
-    "mathematics": {
-      "id": "mathematics",
-      "name": "Mathematics",
-      "base_skill": 45,
-      "bonus_lvl": 5
-    },
-    "history": {
-      "id": "history",
-      "name": "History",
-      "base_skill": 30,
-      "bonus_lvl": 5
-    },
-    "land_navigation": {
-      "id": "land_navigation",
-      "name": "Land Navigation",
-      "base_skill": 36,
-      "bonus_lvl": 4
-    },
-    "lore_demons_monsters": {
-      "id": "lore_demons_monsters",
-      "name": "Lore: Demons & Monsters",
-      "base_skill": 25,
-      "bonus_lvl": 5
-    },
-    "lore_faeries_creatures": {
-      "id": "lore_faeries_creatures",
-      "name": "Lore: Faeries & Creatures of Magic",
-      "base_skill": 20,
-      "bonus_lvl": 5
-    },
-    "lore_religion": {
-      "id": "lore_religion",
-      "name": "Lore: Religion",
-      "base_skill": 30,
-      "bonus_lvl": 5
-    },
-    "wilderness_skills": {
-      "id": "wilderness_skills",
-      "name": "Wilderness Skills",
-      "base_skill": 25,
-      "bonus_lvl": 5
-    }
-  }
-}
+[
+  { "id": "literacy", "name": "Alfabetización", "base": 30, "bonus": 5 },
+  { "id": "hand_work", "name": "Trabajo Manual", "base": 35, "bonus": 5 },
+  { "id": "dancing", "name": "Baile", "base": 35, "bonus": 5 },
+  { "id": "singing", "name": "Canto", "base": 35, "bonus": 5 },
+  { "id": "detection", "name": "Detección", "base": 30, "bonus": 5 },
+  { "id": "disguise", "name": "Disfraz", "base": 25, "bonus": 5 },
+  { "id": "pick_locks", "name": "Forzar Cerraduras", "base": 25, "bonus": 5 },
+  { "id": "pick_pockets", "name": "Carterismo", "base": 25, "bonus": 5 },
+  { "id": "first_aid", "name": "Primeros Auxilios", "base": 45, "bonus": 5 },
+  { "id": "strategy", "name": "Estrategia", "base": 20, "bonus": 5 },
+  { "id": "athletics", "name": "Atletismo", "base": 30, "bonus": 5 },
+  { "id": "climbing", "name": "Escalada", "base": 40, "bonus": 5 },
+  { "id": "swimming", "name": "Natación", "base": 40, "bonus": 5 },
+  { "id": "streetwise", "name": "Vida Callejera", "base": 24, "bonus": 4 },
+  { "id": "use_recognize_poison", "name": "Reconocer/Venenos", "base": 26, "bonus": 4 },
+  { "id": "astronomy", "name": "Astronomía", "base": 25, "bonus": 5 },
+  { "id": "mathematics", "name": "Matemáticas", "base": 45, "bonus": 5 },
+  { "id": "history", "name": "Historia", "base": 30, "bonus": 5 },
+  { "id": "land_navigation", "name": "Navegación Terrestre", "base": 36, "bonus": 4 },
+  { "id": "lore_demons_monsters", "name": "Saber: Demonios y Monstruos", "base": 25, "bonus": 5 },
+  { "id": "lore_faeries_creatures", "name": "Saber: Hadas y Seres Mágicos", "base": 20, "bonus": 5 },
+  { "id": "lore_religion", "name": "Saber: Religión", "base": 30, "bonus": 5 },
+  { "id": "wilderness_skills", "name": "Supervivencia en la Naturaleza", "base": 25, "bonus": 5 },
+  { "id": "language_human", "name": "Idioma: Humano", "base": 35, "bonus": 5 },
+  { "id": "language_elven", "name": "Idioma: Élfico", "base": 35, "bonus": 5 },
+  { "id": "language_goblin", "name": "Idioma: Goblin", "base": 35, "bonus": 5 },
+  { "id": "language_dwarven", "name": "Idioma: Enano", "base": 35, "bonus": 5 },
+  { "id": "language_other_1", "name": "Idioma: Otro 1", "base": 35, "bonus": 5 },
+  { "id": "language_other_2", "name": "Idioma: Otro 2", "base": 35, "bonus": 5 },
+  { "id": "language_other_3", "name": "Idioma: Otro 3", "base": 35, "bonus": 5 },
+  { "id": "language_other_4", "name": "Idioma: Otro 4", "base": 35, "bonus": 5 },
+  { "id": "language_other_5", "name": "Idioma: Otro 5", "base": 35, "bonus": 5 }
+]
