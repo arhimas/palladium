@@ -150,8 +150,8 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
 
 
   useEffect(() => {
-    if (initial) { setChar(initial); setRerollsLeft(2); setEditMode(false) }
-    else { setChar(emptyChar()); setRerollsLeft(2); setEditMode(true) }
+    if (initial) { setChar(initial); setRerollsLeft(2); setEditMode(false); setSelectedSkills(initial.skills || []) }
+    else { setChar(emptyChar()); setRerollsLeft(2); setEditMode(true); setSelectedSkills([]) }
   }, [initial])
 
   const onChangeAttr = (k,v)=> setChar(c=>({ ...c, attributes:{ ...c.attributes, [k]: Number(v) }}))
@@ -187,23 +187,31 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
   // ====== Habilidades: selección por O.C.C. ======
   const [selectedSkills, setSelectedSkills] = useState([])
 
+
   // Cargar por defecto según occ_skills de la O.C.C.
-  // Dependemos también de skillsVersion para que, si ALL_SKILLS se carga asíncronamente,
-  // volvamos a calcular qué occ_skills son válidas y marcar los checks.
+  // - Solo rellenar automáticamente cuando estamos en modo edición "nuevo" (editMode === true).
+  // - No sobrescribir las skills si estamos editando un personaje existente (editMode === false).
+  // Dependemos además de skillsVersion para que, si ALL_SKILLS llega asíncronamente, se re-evalúe.
   useEffect(()=>{
     if (!selectedOcc) {
       setSelectedSkills([]) // limpiar si no hay occ seleccionada
       return
     }
+
+    // Si NO estamos en modo "nuevo" (es decir, estamos editando un personaje guardado),
+    // no sobrescribimos las skills existentes.
+    if (!editMode) return
+
     // occ_skills puede venir como [{id: value}, ...] o strings; tomamos la clave
     const occIds = (selectedOcc.occ_skills || [])
       .map(s => typeof s === 'string' ? s : Object.keys(s||{})[0])
       .map(k => normalizeId(k))
+
     // Limitar a los que existan en ALL_SKILLS
     const allIds = new Set(ALL_SKILLS.map(s=>s.id))
     const valid = occIds.filter(id => allIds.has(id))
     setSelectedSkills(valid)
-  }, [char.occ, skillsVersion])
+  }, [char.occ, skillsVersion, editMode])
 
   // skills para gastar (contador)
   const skillsToSpend = Number(selectedOcc?.number_related_skills || 0)
