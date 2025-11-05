@@ -26,9 +26,5 @@
   { "id": "language_elven", "name": "Idioma: Élfico", "base": 35, "bonus": 5 },
   { "id": "language_goblin", "name": "Idioma: Goblin", "base": 35, "bonus": 5 },
   { "id": "language_dwarven", "name": "Idioma: Enano", "base": 35, "bonus": 5 },
-  { "id": "language_other_1", "name": "Idioma: Otro 1", "base": 35, "bonus": 5 },
-  { "id": "language_other_2", "name": "Idioma: Otro 2", "base": 35, "bonus": 5 },
-  { "id": "language_other_3", "name": "Idioma: Otro 3", "base": 35, "bonus": 5 },
-  { "id": "language_other_4", "name": "Idioma: Otro 4", "base": 35, "bonus": 5 },
-  { "id": "language_other_5", "name": "Idioma: Otro 5", "base": 35, "bonus": 5 }
+  { "id": "language_other_1", "name": "Idioma: Otro 1", "base": 35, "bonus": 5 }
 ]

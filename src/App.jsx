@@ -49,41 +49,60 @@ function parseArmorOptionsFromOcc(text){
   return out
 }
 
-// ===== Habilidades: lista fija traducida =====
-const ALL_SKILLS = [
-  { id: "literacy", name: "Alfabetización", base: 30, bonus: 5 },
-  { id: "hand_work", name: "Trabajo Manual", base: 35, bonus: 5 },
-  { id: "dancing", name: "Baile", base: 35, bonus: 5 },
-  { id: "singing", name: "Canto", base: 35, bonus: 5 },
-  { id: "detection", name: "Detección", base: 30, bonus: 5 },
-  { id: "disguise", name: "Disfraz", base: 25, bonus: 5 },
-  { id: "pick_locks", name: "Forzar Cerraduras", base: 25, bonus: 5 },
-  { id: "pick_pockets", name: "Carterismo", base: 25, bonus: 5 },
-  { id: "first_aid", name: "Primeros Auxilios", base: 45, bonus: 5 },
-  { id: "strategy", name: "Estrategia", base: 20, bonus: 5 },
-  { id: "athletics", name: "Atletismo", base: 30, bonus: 5 },
-  { id: "climbing", name: "Escalada", base: 40, bonus: 5 },
-  { id: "swimming", name: "Natación", base: 40, bonus: 5 },
-  { id: "streetwise", name: "Vida Callejera", base: 24, bonus: 4 },
-  { id: "use_recognize_poison", name: "Reconocer/Venenos", base: 26, bonus: 4 },
-  { id: "astronomy", name: "Astronomía", base: 25, bonus: 5 },
-  { id: "mathematics", name: "Matemáticas", base: 45, bonus: 5 },
-  { id: "history", name: "Historia", base: 30, bonus: 5 },
-  { id: "land_navigation", name: "Navegación Terrestre", base: 36, bonus: 4 },
-  { id: "lore_demons_monsters", name: "Saber: Demonios y Monstruos", base: 25, bonus: 5 },
-  { id: "lore_faeries_creatures", name: "Saber: Hadas y Seres Mágicos", base: 20, bonus: 5 },
-  { id: "lore_religion", name: "Saber: Religión", base: 30, bonus: 5 },
-  { id: "wilderness_skills", name: "Supervivencia en la Naturaleza", base: 25, bonus: 5 },
-  { id: "language_human", name: "Idioma: Humano", base: 35, bonus: 5 },
-  { id: "language_elven", name: "Idioma: Élfico", base: 35, bonus: 5 },
-  { id: "language_goblin", name: "Idioma: Goblin", base: 35, bonus: 5 },
-  { id: "language_dwarven", name: "Idioma: Enano", base: 35, bonus: 5 },
-  { id: "language_other_1", name: "Idioma: Otro 1", base: 35, bonus: 5 },
-  { id: "language_other_2", name: "Idioma: Otro 2", base: 35, bonus: 5 },
-  { id: "language_other_3", name: "Idioma: Otro 3", base: 35, bonus: 5 },
-  { id: "language_other_4", name: "Idioma: Otro 4", base: 35, bonus: 5 },
-  { id: "language_other_5", name: "Idioma: Otro 5", base: 35, bonus: 5 }
-]
+// ===== Habilidades: cargadas desde JSON en public (fallback vacío) =====
+let ALL_SKILLS = []
+
+/**
+ * loadSkillsJson: intenta cargar las skills desde varios paths posibles (en public/).
+ * Soporta:
+ *  - array JSON: [ { id, name, base, bonus }, ... ]
+ *  - objeto mapeado: { key: { id, name, base_skill, bonus_lvl }, ... }
+ *
+ * NOTA: esta función NO hace re-render por sí sola; cuando cargue emite un evento
+ * "allSkillsUpdated" en window para que los componentes puedan reaccionar.
+ */
+async function loadSkillsJson(){
+  const candidates = [
+    '/data/skillsMaps.json',
+    '/data/skillsMap.json',
+    '/data/skills.json',
+    '/skillsMaps.json',
+    '/skillsMap.json',
+    '/skills.json'
+  ]
+  for(const path of candidates){
+    try {
+      const r = await fetch(`${path}?ts=${Date.now()}`)
+      if(!r.ok) continue
+      const js = await r.json()
+      // Si ya es un array con objetos que tienen id, lo usamos tal cual
+      if(Array.isArray(js) && js.length > 0 && js[0].id){
+        ALL_SKILLS = js
+        window.dispatchEvent(new Event('allSkillsUpdated'))
+        console.log('Loaded skills array from', path)
+        return
+      }
+      // Si es un objeto tipo map, lo convertimos a array
+      if(js && typeof js === 'object' && !Array.isArray(js)){
+        const arr = Object.keys(js).map(k=>{
+          const v = js[k] || {}
+          const base = Number(v.base || v.base_skill || v.base_skill || v.base) || 0
+          const bonus = Number(v.bonus || v.bonus_lvl || v.bonus_lvl) || 0
+          return { id: v.id || k, name: v.name || v.label || k, base, bonus }
+        })
+        if(arr.length > 0){
+          ALL_SKILLS = arr
+          window.dispatchEvent(new Event('allSkillsUpdated'))
+          console.log('Loaded skills map from', path)
+          return
+        }
+      }
+    } catch(e){
+      // ignoramos y probamos el siguiente path
+    }
+  }
+  console.warn('No skills JSON found in any candidate path; ALL_SKILLS remains empty')
+}
 
 // ===== Tabs =====
 function Tabs({tab,setTab}){
@@ -120,6 +139,14 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
   const [rerollsLeft, setRerollsLeft] = useState(2)
   const [occArmorOptions, setOccArmorOptions] = useState([])
   const [editMode, setEditMode] = useState(!initial) // si es nuevo, edición; si viene inicial, lo dejamos editable hasta Guardar
+
+  // Versión para forzar re-evaluación cuando ALL_SKILLS se actualiza por loadSkillsJson()
+  const [skillsVersion, setSkillsVersion] = useState(0)
+  useEffect(()=>{
+    const h = () => setSkillsVersion(v => v + 1)
+    window.addEventListener('allSkillsUpdated', h)
+    return () => window.removeEventListener('allSkillsUpdated', h)
+  }, [])
 
   useEffect(() => {
     if (initial) { setChar(initial); setRerollsLeft(2); setEditMode(false) }
@@ -169,7 +196,7 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
   // Orden alfabético por nombre (siempre)
   const allSorted = useMemo(() => {
     return [...ALL_SKILLS].sort((a,b)=> a.name.localeCompare(b.name,'es'))
-  }, [])
+  }, [skillsVersion])
 
   // Particionamos según selección (las seleccionadas arriba)
   const selectedList = allSorted.filter(sk=> selectedSkills.includes(sk.id))
@@ -604,6 +631,12 @@ export default function PalladiumApp(){
       ['armor', setArmor],
     ]
     init.forEach(([n,setter]) => { refreshCatalog(n, setter) })
+
+    // Cargar el JSON de skills (intenta varios nombres/rutas)
+    ;(async () => {
+      await loadSkillsJson()
+      // no hace falta setState aquí porque CharacterEditor escucha 'allSkillsUpdated'
+    })()
   }, [])
 
   const [characters,setCharacters] = useState(()=>{
