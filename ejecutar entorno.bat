@@ -1,0 +1,1 @@
+C:\Users\daniel.caro\Documents\node-portable\node.exe node_modules\vite\bin\vite.js
