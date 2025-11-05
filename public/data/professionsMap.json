@@ -1,0 +1,385 @@
+{
+  "Priest of Light": {
+    "name": "Priest of Light",
+    "hand2hand": "Basic",
+    "attribute_requirements": {
+      "ME": "10"
+    },
+    "occ_skills": [
+      {
+        "dancing": "20"
+      },
+      {
+        "literacy": "20"
+      },
+      {
+        "mathematics": "20"
+      },
+      {
+        "lore_demons_monsters": "15"
+      },
+      {
+        "lore_religion": "20"
+      },
+      {
+        "land_navigation": "10"
+      },
+      {
+        "wilderness_skills": "10"
+      }
+    ],
+    "number_related_skills": "6",
+    "starting_equipment": "Clerical vestments, travel clothes, bedroll, backpack, waterskin, writing kit (ink, quills, parchment).",
+    "armor_restriction": "Soft leather or chain at GM's discretion; holy symbols.",
+    "starting_armor_options": [
+      "leather",
+      "chain_mail"
+    ],
+    "starting_weapons": [
+      "dagger",
+      "quarterstaff",
+      "mace"
+    ],
+    "money": "50",
+    "notes": "Travelling/Temple Priest template; turning/holy powers per deity; see Priests section."
+  },
+  "Priest of Darkness": {
+    "name": "Priest of Darkness",
+    "hand2hand": "Basic",
+    "attribute_requirements": {
+      "ME": "10"
+    },
+    "occ_skills": [
+      {
+        "literacy": "20"
+      },
+      {
+        "mathematics": "20"
+      },
+      {
+        "lore_demons_monsters": "15"
+      },
+      {
+        "lore_religion": "20"
+      },
+      {
+        "land_navigation": "10"
+      },
+      {
+        "streetwise": "10"
+      },
+      {
+        "wilderness_skills": "10"
+      }
+    ],
+    "number_related_skills": "8",
+    "starting_equipment": "Dark vestments, travel gear, waterskin, writing kit; ritual accoutrements.",
+    "armor_restriction": "As allowed by sect; often leather/chain.",
+    "starting_armor_options": [
+      "leather",
+      "chain_mail"
+    ],
+    "starting_weapons": [
+      "dagger",
+      "quarterstaff",
+      "mace"
+    ],
+    "money": "Tithes/loot; GM mediated.",
+    "notes": "See Priests of Darkness O.C.C. entry."
+  },
+  "Warrior Monk": {
+    "name": "Warrior Monk",
+    "hand2hand": "Martial Arts",
+    "attribute_requirements": {
+      "PP": "11",
+      "PE": "11"
+    },
+    "occ_skills": [
+      {
+        "literacy": "15"
+      },
+      {
+        "mathematics": "20"
+      },
+      {
+        "climbing": "10"
+      },
+      {
+        "lore_demons_monsters": "15"
+      },
+      {
+        "lore_religion": "20"
+      },
+      {
+        "land_navigation": "15"
+      },
+      {
+        "swimming": "10"
+      },
+      {
+        "wilderness_skills": "15"
+      }
+    ],
+    "number_related_skills": "6",
+    "starting_equipment": "Robes, travel gear, quarterstaff.",
+    "armor_restriction": "Light (robes/soft leather).",
+    "starting_armor_options": [
+      "leather",
+      "none"
+    ],
+    "starting_weapons": [
+      "dagger",
+      "quarterstaff",
+      "short_sword"
+    ],
+    "money": "Sparse.",
+    "notes": "See Warrior Monk section for full skill list."
+  },
+  "Druid": {
+    "name": "Druid",
+    "hand2hand": "Basic",
+    "attribute_requirements": {
+      "IQ": "9",
+      "PE": "12"
+    },
+    "occ_skills": [
+      {
+        "astronomy": "15"
+      },
+      {
+        "history": "20"
+      },
+      {
+        "land_navigation": "15"
+      },
+      {
+        "lore_faeries_creatures": "20"
+      },
+      {
+        "mathematics": "20"
+      },
+      {
+        "wilderness_skills": "20"
+      }
+    ],
+    "number_related_skills": "6",
+    "starting_equipment": "Travel gear, herbal kit.",
+    "armor_restriction": "Light/medium as allowed.",
+    "starting_armor_options": [
+      "leather",
+      "studded_leather"
+    ],
+    "starting_weapons": [
+      "dagger",
+      "quarterstaff"
+    ],
+    "money": "Modest.",
+    "notes": "Además de 6 Related en nivel 1, añade 1 Related adicional en niveles 3, 6, 9 y 12."
+  },
+  "Mercenary Fighter": {
+    "name": "Mercenary Fighter",
+    "hand2hand": "Expert",
+    "attribute_requirements": {
+      "PS": "10",
+      "PE": "10"
+    },
+    "occ_skills": [
+      {
+        "climbing": "10"
+      },
+      {
+        "athletics": "0"
+      },
+      {
+        "wilderness_skills": "10"
+      }
+    ],
+    "number_related_skills": "10",
+    "starting_equipment": "Travel gear; see merc equipment packages.",
+    "armor_restriction": "Varies by employer; leather/chain/plate.",
+    "starting_armor_options": [
+      "studded_leather",
+      "chain_mail",
+      "plate_armor"
+    ],
+    "starting_weapons": [
+      "dagger",
+      "broadsword"
+    ],
+    "money": "Wages; hazard pay; equipment discounts vary.",
+    "notes": "Armor options & penalties apply."
+  },
+  "Soldier": {
+    "name": "Soldier",
+    "hand2hand": "Basic",
+    "attribute_requirements": {
+      "PS": "10",
+      "PP": "10"
+    },
+    "occ_skills": [
+      {
+        "climbing": "5"
+      },
+      {
+        "athletics": "0"
+      }
+    ],
+    "number_related_skills": "8",
+    "starting_equipment": "Uniform, civilian clothing, boots, gloves, bedroll, backpack, two small sacks, water skin, two weeks' rations, tinder box.",
+    "armor_restriction": "Starts with chain mail (AR 14 SDC 44) or studded leather (AR 13 SDC 38).",
+    "starting_armor_options": [
+      "studded_leather",
+      "chain_mail"
+    ],
+    "starting_weapons": [
+      "dagger",
+      "Small shield",
+      "two weapons of choice (basic S.D.C.)."
+    ],
+    "money": "Starts with 180 gold; plus salary/hazard pay.",
+    "notes": "Official equipment & money list."
+  },
+  "Long Bowman": {
+    "name": "Long Bowman",
+    "hand2hand": "Basic",
+    "attribute_requirements": {
+      "PS": "10",
+      "PP": "12"
+    },
+    "occ_skills": [
+      {
+        "athletics": "0"
+      },
+      {
+        "wilderness_skills": "10"
+      }
+    ],
+    "number_related_skills": "8",
+    "starting_equipment": "Travel gear; bowmaking items (GM).",
+    "armor_restriction": "Prefers studded/chain/plate&leather/plate&chain; penalties in heavy armor.",
+    "starting_armor_options": [
+      "studded_leather",
+      "chain_mail"
+    ],
+    "starting_weapons": [
+      "dagger",
+      "longbow"
+    ],
+    "money": "Mercenary pay; premium rates at higher levels.",
+    "notes": "Armor penalties reduce rate of fire and strike bonus."
+  },
+  "Knight": {
+    "name": "Knight",
+    "hand2hand": "Expert",
+    "attribute_requirements": {
+      "PS": "12"
+    },
+    "occ_skills": [
+      {
+        "dancing": "15"
+      },
+      {
+        "land_navigation": "10"
+      },
+      {
+        "literacy": "20"
+      },
+      {
+        "mathematics": "15"
+      }
+    ],
+    "number_related_skills": "8",
+    "starting_equipment": "Warhorse & tack (GM), noble gear.",
+    "armor_restriction": "Plate & Chain typically.",
+    "starting_armor_options": [
+      "chain_mail",
+      "plate_armor"
+    ],
+    "starting_weapons": [
+      "dagger",
+      "lance",
+      "sword",
+      "mace",
+      "shield"
+    ],
+    "money": "Stipend/land.",
+    "notes": "Armor movement/skill penalties summarized; see Knights & Paladins."
+  },
+  "Paladin": {
+    "name": "Paladin",
+    "hand2hand": "Martial Arts",
+    "attribute_requirements": {
+      "PS": "12",
+      "PE": "12"
+    },
+    "occ_skills": [
+      {
+        "dancing": "10"
+      },
+      {
+        "land_navigation": "10"
+      },
+      {
+        "literacy": "10"
+      },
+      {
+        "lore_religion": "0"
+      },
+      {
+        "mathematics": "0"
+      }
+    ],
+    "number_related_skills": "6",
+    "starting_equipment": "Holy symbols, noble gear.",
+    "armor_restriction": "As Knight (heavy).",
+    "starting_armor_options": [
+      "chain_mail",
+      "plate_armor"
+    ],
+    "starting_weapons": [
+      "dagger",
+      "lance",
+      "sword",
+      "mace",
+      "shield"
+    ],
+    "money": "Stipends/donations.",
+    "notes": "See class for divine powers; armor penalties apply."
+  },
+  "Ranger": {
+    "name": "Ranger",
+    "hand2hand": "Basic",
+    "attribute_requirements": {
+      "PE": "13"
+    },
+    "occ_skills": [
+      {
+        "hand_work": "10"
+      },
+      {
+        "land_navigation": "20"
+      },
+      {
+        "detection": "20"
+      },
+      {
+        "wilderness_skills": "20"
+      }
+    ],
+    "number_related_skills": "8",
+    "starting_equipment": "Two sets of clothing, boots, bedroll, backpack, two small sacks, waterskin, 50 ft rope, lantern",
+    "armor_restriction": "Light/medium; penalties in heavy armor.",
+    "starting_armor_options": [
+      "leather",
+      "studded_leather",
+      "chain_mail"
+    ],
+    "starting_weapons": [
+      "dagger",
+      "bow",
+      "spear"
+    ],
+    "money": "Modest plus bounties.",
+    "notes": "Classic wilderness toolkit and tracking focus."
+  }
+}
