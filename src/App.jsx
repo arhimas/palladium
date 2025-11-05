@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+
+import React, { useEffect, useMemo, useState } from 'react'
 
 const ATTRS = ['I.Q.','M.E.','M.A.','P.S.','P.P.','P.E.','P.B.','SPD']
 const STORAGE_KEYS = { CHARACTERS:'palladium:chars' }
 
+// ===== Utilidades básicas =====
 function uid(prefix='id_'){ return `${prefix}${Math.random().toString(36).slice(2,9)}` }
 function attrGenericBonus(score){ return Math.floor((Number(score||10) - 10)/2) }
 function iqSkillPercent(iq){ const v = Number(iq||0); if (v < 16) return 0; return v - 14 }
@@ -12,8 +14,8 @@ function normalizeId(x){ return String(x||'').trim().toLowerCase() }
 function rollD6(n){ let t=0; for(let i=0;i<n;i++) t+= 1+Math.floor(Math.random()*6); return t }
 function rollByFormula(formula){
   if(!formula) return 10;
-  let f = String(formula).trim().toUpperCase().replace(/\s+/g,'');
-  const m = f.match(/^(\d+)D6(?:(\+|\-)(\d+))?$/);
+  let f = String(formula).trim().toUpperCase().replace(/\s+/g,'')
+  const m = f.match(/^(\d+)D6(?:(\+|\-)(\d+))?$/)
   if(m){
     const n = Number(m[1]);
     const sign = m[2] === '-' ? -1 : +1;
@@ -26,17 +28,6 @@ function rollByFormula(formula){
 function rollAttrForRace(race, attrName){
   const f = race?.attributes_roll?.[attrName] || '3D6';
   return Math.max(10, rollByFormula(f)); // mínimo 10
-}
-
-function mapSkillToAttr(skill, skills){
-  const byName = (skills||[]).find(sk => normalizeId(sk.name) === normalizeId(skill))
-  if (byName && byName.attribute) return byName.attribute
-  const s = normalizeId(skill||'')
-  if(s.includes('combat')) return 'P.S.'
-  if(s.includes('int'))    return 'I.Q.'
-  if(s.includes('prow')||s.includes('lock')) return 'P.P.'
-  if(s.includes('spell')||s.includes('lore')) return 'I.Q.'
-  return '-'
 }
 
 // Parser de texto (fallback) para armaduras iniciales en OCC
@@ -58,7 +49,43 @@ function parseArmorOptionsFromOcc(text){
   return out
 }
 
-// ---------------- UI menores ----------------
+// ===== Habilidades: lista fija traducida =====
+const ALL_SKILLS = [
+  { id: "literacy", name: "Alfabetización", base: 30, bonus: 5 },
+  { id: "hand_work", name: "Trabajo Manual", base: 35, bonus: 5 },
+  { id: "dancing", name: "Baile", base: 35, bonus: 5 },
+  { id: "singing", name: "Canto", base: 35, bonus: 5 },
+  { id: "detection", name: "Detección", base: 30, bonus: 5 },
+  { id: "disguise", name: "Disfraz", base: 25, bonus: 5 },
+  { id: "pick_locks", name: "Forzar Cerraduras", base: 25, bonus: 5 },
+  { id: "pick_pockets", name: "Carterismo", base: 25, bonus: 5 },
+  { id: "first_aid", name: "Primeros Auxilios", base: 45, bonus: 5 },
+  { id: "strategy", name: "Estrategia", base: 20, bonus: 5 },
+  { id: "athletics", name: "Atletismo", base: 30, bonus: 5 },
+  { id: "climbing", name: "Escalada", base: 40, bonus: 5 },
+  { id: "swimming", name: "Natación", base: 40, bonus: 5 },
+  { id: "streetwise", name: "Vida Callejera", base: 24, bonus: 4 },
+  { id: "use_recognize_poison", name: "Reconocer/Venenos", base: 26, bonus: 4 },
+  { id: "astronomy", name: "Astronomía", base: 25, bonus: 5 },
+  { id: "mathematics", name: "Matemáticas", base: 45, bonus: 5 },
+  { id: "history", name: "Historia", base: 30, bonus: 5 },
+  { id: "land_navigation", name: "Navegación Terrestre", base: 36, bonus: 4 },
+  { id: "lore_demons_monsters", name: "Saber: Demonios y Monstruos", base: 25, bonus: 5 },
+  { id: "lore_faeries_creatures", name: "Saber: Hadas y Seres Mágicos", base: 20, bonus: 5 },
+  { id: "lore_religion", name: "Saber: Religión", base: 30, bonus: 5 },
+  { id: "wilderness_skills", name: "Supervivencia en la Naturaleza", base: 25, bonus: 5 },
+  { id: "language_human", name: "Idioma: Humano", base: 35, bonus: 5 },
+  { id: "language_elven", name: "Idioma: Élfico", base: 35, bonus: 5 },
+  { id: "language_goblin", name: "Idioma: Goblin", base: 35, bonus: 5 },
+  { id: "language_dwarven", name: "Idioma: Enano", base: 35, bonus: 5 },
+  { id: "language_other_1", name: "Idioma: Otro 1", base: 35, bonus: 5 },
+  { id: "language_other_2", name: "Idioma: Otro 2", base: 35, bonus: 5 },
+  { id: "language_other_3", name: "Idioma: Otro 3", base: 35, bonus: 5 },
+  { id: "language_other_4", name: "Idioma: Otro 4", base: 35, bonus: 5 },
+  { id: "language_other_5", name: "Idioma: Otro 5", base: 35, bonus: 5 }
+]
+
+// ===== Tabs =====
 function Tabs({tab,setTab}){
   return (
     <div className="flex gap-2">
@@ -75,25 +102,28 @@ function Tabs({tab,setTab}){
 function OccInfo(){ return null }
 function RaceInfo(){ return null }
 
-// ---------------- Editor de personaje ----------------
-function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons, skills, refreshers, armor, equip }){
+// ====== Editor de personaje ======
+function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons, refreshers, armor, equip }){
   const emptyChar = ()=>({
     id: uid('ch_'),
     name:'', race:'', occ:'',
     attributes: {'I.Q.':12,'M.E.':10,'M.A.':10,'P.S.':12,'P.P.':10,'P.E.':10,'P.B.':10,'SPD':10},
     armorId:'', ar:0, sdc:0,
-    skills:[], skillLevels:{},
+    skills:[], // guardaremos los ids seleccionados
     attacks:[], attacksAllowed:2,
     pack:[], notes:'',
-    locked: { armor:false, weapons:[], skills:{} }
+    locked: { armor:false, weapons:[] },
+    level: 1 // nivel del personaje
   })
+
   const [char,setChar] = useState(initial || emptyChar())
   const [rerollsLeft, setRerollsLeft] = useState(2)
   const [occArmorOptions, setOccArmorOptions] = useState([])
+  const [editMode, setEditMode] = useState(!initial) // si es nuevo, edición; si viene inicial, lo dejamos editable hasta Guardar
 
   useEffect(() => {
-    if (initial) { setChar(initial); setRerollsLeft(2) }
-    else { setChar(emptyChar()); setRerollsLeft(2) }
+    if (initial) { setChar(initial); setRerollsLeft(2); setEditMode(false) }
+    else { setChar(emptyChar()); setRerollsLeft(2); setEditMode(true) }
   }, [initial])
 
   const onChangeAttr = (k,v)=> setChar(c=>({ ...c, attributes:{ ...c.attributes, [k]: Number(v) }}))
@@ -116,67 +146,70 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
     setRerollsLeft(x=>x-1)
   }
 
-  const onSelectOcc = (occId)=> {
-    const occ = occs.find(x=>x.id===occId)
-    const baseSkills = (occ?.occ_skills && Array.isArray(occ.occ_skills) ? occ.occ_skills : (occ?.skills || []))
-    const cleaned = baseSkills.map(s => typeof s === 'string' ? s.trim() : s).filter(Boolean)
-    const newLevels = {...(char.skillLevels||{})}
-    cleaned.forEach(s=>{ if(!(s in newLevels)) newLevels[s]=0 })
-    const mergedNotes = [char.notes||'', occ?.notes||''].filter(Boolean).join('\n')
+  // ====== Habilidades: selección por O.C.C. ======
+  const [selectedSkills, setSelectedSkills] = useState([])
 
-    // Huecos/armas iniciales
-    let attacksAllowed = Number(occ?.attacksAllowed || 0)
-    let attacks = []
-    const isWizard = normalizeId(occ?.id) === 'wizard' || normalizeId(occ?.name) === 'wizard'
-    if (isWizard) {
-      attacksAllowed = Math.max(attacksAllowed, 2)
-      const dagger = (weapons||[]).find(w => /dagger|knife/.test(normalizeId(w.name)))
-      if (dagger) attacks = [dagger.id]
+  // Cargar por defecto según occ_skills de la O.C.C.
+  useEffect(()=>{
+    if (!selectedOcc) return
+    // occ_skills puede venir como [{id: value}, ...] o strings; tomamos la clave
+    const occIds = (selectedOcc.occ_skills || [])
+      .map(s => typeof s === 'string' ? s : Object.keys(s||{})[0])
+      .map(k => normalizeId(k))
+    // Limitar a los que existan en ALL_SKILLS
+    const allIds = new Set(ALL_SKILLS.map(s=>s.id))
+    const valid = occIds.filter(id => allIds.has(id))
+    setSelectedSkills(valid)
+  }, [char.occ])
+
+  // skills para gastar (contador)
+  const skillsToSpend = Number(selectedOcc?.number_related_skills || 0)
+  const skillsLeft = Math.max(0, skillsToSpend - selectedSkills.length)
+
+  // Orden alfabético por nombre (siempre)
+  const allSorted = useMemo(() => {
+    return [...ALL_SKILLS].sort((a,b)=> a.name.localeCompare(b.name,'es'))
+  }, [])
+
+  // Particionamos según selección (las seleccionadas arriba)
+  const selectedList = allSorted.filter(sk=> selectedSkills.includes(sk.id))
+  const notSelectedList = allSorted.filter(sk=> !selectedSkills.includes(sk.id))
+
+  // Toggle de selección (estilo "radio", pero funcionalmente checkbox)
+  const toggleSkill = (id) => {
+    if (selectedSkills.includes(id)) {
+      setSelectedSkills(prev => prev.filter(sid => sid !== id))
+    } else {
+      if (selectedSkills.length >= skillsToSpend) return // no permitir más
+      setSelectedSkills(prev => [...prev, id])
     }
-
-    // 1º: usar opciones estructuradas si existen
-    let occOpts = Array.isArray(occ?.starting_armor_options)
-      ? occ.starting_armor_options.map(o => ({ id:o.id, name:o.name, ar:Number(o.ar||0), sdc:Number(o.sdc||0) }))
-      : []
-
-    // 2º: si no hay, intentar parsear el texto libre
-    if (occOpts.length === 0) occOpts = parseArmorOptionsFromOcc(occ?.armor)
-    setOccArmorOptions(occOpts)
-
-    // Autoselección si hay una sola
-    let nextArmorId = char.armorId
-    let nextAR = char.ar
-    let nextSDC = char.sdc
-    if (occOpts.length === 1){
-      const one = occOpts[0]
-      nextArmorId = one.id; nextAR = one.ar; nextSDC = one.sdc
-    } else if (isWizard && occOpts.length === 0){
-      nextArmorId = 'soft_leather'; nextAR = 10; nextSDC = 20
-    }
-
-    // Precarga armas iniciales por IDs si existen en la O.C.C.
-    const startingWeaponIds = Array.isArray(occ?.starting_weapon_ids)
-      ? occ.starting_weapon_ids.filter(id => (weapons||[]).some(w => w.id === id))
-      : []
-    const nextAttacks = startingWeaponIds.length ? startingWeaponIds : attacks
-    // mínimo 2 slots siempre
-    const nextAttacksAllowed = Math.max(2, attacksAllowed || 0, nextAttacks.length)
-
-    setChar(c=>({
-      ...c,
-      occ: occId,
-      skills: cleaned,
-      skillLevels: newLevels,
-      notes: mergedNotes,
-      attacksAllowed: nextAttacksAllowed,
-      attacks: nextAttacks,
-      armorId: nextArmorId,
-      ar: nextAR,
-      sdc: nextSDC
-    }))
   }
 
-  // Armadura
+  // ====== Guardar ======
+  const computeDerived = ()=>{
+    const occ = occs.find(o=>o.id===char.occ)
+    const con = Number(char.attributes['P.E.'] || 10)
+    const hp = occ ? Math.max(1, Math.floor((con-10)/2) + (occ.hpDie||occ.hp_die||4)) : Math.max(1, Math.floor((con-10)/2) + 4)
+    const ppe = occ ? (occ.ppeBase || occ.ppe_base || 0) : 0
+
+    const pack = char.pack || []
+    let packWeight = 0, packCost = 0
+    pack.forEach(pid=>{
+      const it = (equip||[]).find(e=>e.id===pid)
+      if(it){ packWeight += Number(it.weight_lbs||0); packCost += Number(it.cost_gp||0) }
+    })
+    return { hp, sdc: Number(char.sdc||0), ar: Number(char.ar||0), ppe, packWeight, packCost }
+  }
+
+  const save = ()=>{
+    const derived = computeDerived()
+    const payload = { ...char, ...derived, skills: selectedSkills, level: char.level || 1 }
+    setEditMode(false) // tras guardar, el modo edición se desactiva -> filas no seleccionadas en gris
+    onSave(payload)
+    onClose()
+  }
+
+  // ====== Armadura inicial (global) ======
   const onArmorChange = (id)=>{
     if (!id){
       setChar(c=>({...c, armorId:'', ar:0, sdc:0, locked:{...(c.locked||{}), armor:false} }))
@@ -193,15 +226,38 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
     }
   }
 
-  // Armas
+  const onSelectOcc = (occId)=> {
+    const occ = occs.find(x=>x.id===occId)
+
+    // Opciones de armadura
+    let occOpts = Array.isArray(occ?.starting_armor_options)
+      ? occ.starting_armor_options.map(o => ({ id:o.id || o, name:o.name || String(o), ar:Number(o.ar||0), sdc:Number(o.sdc||0) }))
+      : []
+    if (occOpts.length === 0) occOpts = parseArmorOptionsFromOcc(occ?.armor)
+    setOccArmorOptions(occOpts)
+
+    let nextArmorId = char.armorId
+    let nextAR = char.ar
+    let nextSDC = char.sdc
+    if (occOpts.length === 1){
+      const one = occOpts[0]; nextArmorId = one.id; nextAR = one.ar; nextSDC = one.sdc
+    }
+
+    // Precarga armas por starting_weapon_ids si existen
+    const startingWeaponIds = Array.isArray(occ?.starting_weapon_ids)
+      ? occ.starting_weapon_ids.filter(id => (weapons||[]).some(w => w.id === id))
+      : []
+    const nextAttacks = startingWeaponIds.length ? startingWeaponIds : (char.attacks||[])
+    const nextAttacksAllowed = Math.max(2, Number(occ?.attacksAllowed||0) || 2, nextAttacks.length)
+
+    setChar(c=>({ ...c, occ: occId, armorId: nextArmorId, ar: nextAR, sdc: nextSDC, attacks: nextAttacks, attacksAllowed: nextAttacksAllowed }))
+  }
+
+  // Ataques
   const addAttack = ()=>{
     const remaining = (char.attacksAllowed||0) - (char.attacks?.length || 0)
     if (remaining <= 0) return
-    setChar(c=>({
-      ...c,
-      attacks:[...(c.attacks||[]), '' ],
-      locked:{ ...(c.locked||{}), weapons:[...(c.locked?.weapons||[]), false] }
-    }))
+    setChar(c=>({ ...c, attacks:[...(c.attacks||[]), '' ], locked:{ ...(c.locked||{}), weapons:[...(c.locked?.weapons||[]), false] } }))
   }
   const removeAttack = (idx)=>{
     if (char.locked?.weapons?.[idx]) return
@@ -219,28 +275,9 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
     })
   }
 
-  const addPackItem = ()=> setChar(c=>({ ...c, pack:[...(c.pack||[]), '' ] }))
-  const onSkillNameChange = (idx,val)=>{
-    const current = (char.skills||[])[idx]
-    if (current) return
-    const copy=[...(char.skills||[])]; copy[idx]=val; setChar(c=>({...c, skills:copy}))
-  }
-
-  const computeDerived = ()=>{
-    const occ = occs.find(o=>o.id===char.occ)
-    const con = Number(char.attributes['P.E.'] || 10)
-    const hp = occ ? Math.max(1, Math.floor((con-10)/2) + (occ.hpDie||occ.hp_die||4)) : Math.max(1, Math.floor((con-10)/2) + 4)
-    const ppe = occ ? (occ.ppeBase || occ.ppe_base || 0) : 0
-
-    const pack = char.pack || []
-    let packWeight = 0, packCost = 0
-    pack.forEach(pid=>{
-      const it = (equip||[]).find(e=>e.id===pid)
-      if(it){ packWeight += Number(it.weight_lbs||0); packCost += Number(it.cost_gp||0) }
-    })
-    return { hp, sdc: Number(char.sdc||0), ar: Number(char.ar||0), ppe, packWeight, packCost }
-  }
-  const save = ()=>{ const derived = computeDerived(); const payload = { ...char, ...derived }; onSave(payload); onClose() }
+  // Mostrar SIEMPRE 5 filas de ataques
+  const attackRows = [...(char.attacks || [])]
+  while (attackRows.length < 5) attackRows.push('')
 
   if(!open) return null
 
@@ -249,13 +286,9 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
     ? occArmorOptions
     : (armor||[]).map(a=>({ id:a.id, name:a.name, ar:Number(a.ar||0), sdc:Number(a.sdc||0) }))
 
-  // Mostrar SIEMPRE 5 filas de ataques
-  const attackRows = [...(char.attacks || [])]
-  while (attackRows.length < 5) attackRows.push('')
-
   return (
     <div className="fixed inset-0 bg-black/40 flex items-start justify-center p-6 z-50">
-      <div className="bg-white w-full max-w-5xl rounded shadow p-4 max-h-[90vh] overflow-auto">
+      <div className="bg-white w-full max-w-6xl rounded shadow p-4 max-h-[90vh] overflow-auto">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold">Editor de personaje</h3>
           <div>
@@ -264,331 +297,276 @@ function CharacterEditor({ open, onClose, races, occs, onSave, initial, weapons,
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-3">
-          <div className="grid grid-cols-2 gap-2">
-            <div className="space-y-2">
-              <div>
-                <label className="block text-xs">Nombre</label>
-                <input value={char.name} onChange={e=>setChar(c=>({...c,name:e.target.value}))} className="border p-0 rounded w-full" />
-              </div>
-              <div>
-                <label className="block text-xs">Raza</label>
-                <select value={char.race} onChange={e=>onSelectRace(e.target.value)} onFocus={refreshers?.races} className="border p-0 rounded w-full">
-                  <option value="">--</option>
-                  {races.map(r=> <option key={r.id} value={r.id}>{r.name || r.label}</option>)}
-                </select>
-                {/* Panel de Raza oculto a propósito */}
-              </div>
-            </div>
-            <div className="space-y-2">
-              <div>
-                <label className="block text-xs">Profesión (O.C.C.)</label>
-                <select value={char.occ} onChange={e=>onSelectOcc(e.target.value)} onFocus={refreshers?.occs} className="border p-0 rounded w-full">
-                  <option value="">--</option>
-                  {occs.map(o=> <option key={o.id} value={o.id}>{o.name}</option>)}
-                </select>
-                {/* Panel de O.C.C. oculto a propósito */}
-              </div>
-            </div>
+        {/* Cabecera Nombre / OCC / Raza / Nivel */}
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label className="block text-xs">Nombre</label>
+            <input value={char.name} onChange={e=>setChar(c=>({...c,name:e.target.value}))} className="border p-0 rounded w-full" />
           </div>
-
-          {/* Atributos */}
-          <div className="mt-3">
-            <div className="flex items-center justify-between">
-              <div className="text-sm font-medium">Atributos</div>
-              <div className="text-xs text-gray-600">Rerolls disponibles: {rerollsLeft}</div>
-            </div>
-            <div className="grid grid-cols-8 gap-2 mt-2">
-              {ATTRS.map(a=> {
-                const val = char.attributes[a]
-                const bonus =
-                  a === 'I.Q.' ? iqSkillPercent(val) :
-                  a === 'P.S.' ? psDamageBonus(val)    :
-                                 attrGenericBonus(val)
-                return (
-                  <div key={a} className="border rounded p-0 text-sm">
-                    <div className="text-xs">{a}</div>
-                    <input type="number" value={val} onChange={e=>onChangeAttr(a,e.target.value)} className="w-full border p-0 rounded mt-1" />
-                    <div className="flex items-center justify-between mt-1">
-                      <span className="text-xs">Bonus: {bonus}</span>
-                      <button type="button" className={`text-xs px-0 py-0.5 rounded ${rerollsLeft>0 && selectedRace ? 'bg-amber-200' : 'bg-gray-200 cursor-not-allowed'}`} onClick={()=>rerollAttr(a)} disabled={!selectedRace || rerollsLeft<=0}>
-                        Reroll
-                      </button>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
+          <div>
+            <label className="block text-xs">Profesión (O.C.C.)</label>
+            <select value={char.occ} onChange={e=>onSelectOcc(e.target.value)} className="border p-0 rounded w-full">
+              <option value="">--</option>
+              {occs.map(o=> <option key={o.id} value={o.id}>{o.name}</option>)}
+            </select>
           </div>
-
-          {/* Armadura global (ultracompacta, padding 0) */}
-          <div className="mt-2">
-            <div className="text-sm font-medium">Armadura</div>
-            <div className="grid grid-cols-12 gap-2 mt-1 items-center">
-              <div className="col-span-6">
-                <label className="block text-[11px] leading-tight">Modelo</label>
-                <select
-                  value={char.armorId || ''}
-                  onChange={e => onArmorChange(e.target.value)}
-                  onFocus={refreshers?.armor}
-                  disabled={!!(char.locked && char.locked.armor)}
-                  className="border rounded w-full text-sm px-0 py-0 leading-tight"
-                >
-                  <option value="">--</option>
-                  {armorOptions.map(a => (
-                    <option key={a.id} value={a.id}>{a.name}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="col-span-3">
-                <label className="block text-[11px] leading-tight">A.R.</label>
-                <input
-                  type="number"
-                  className="border rounded w-full text-sm px-0 py-0 leading-tight"
-                  value={char.ar || 0}
-                  readOnly
-                />
-              </div>
-
-              <div className="col-span-3">
-                <label className="block text-[11px] leading-tight">S.D.C.</label>
-                <input
-                  type="number"
-                  className="border rounded w-full text-sm px-0 py-0 leading-tight"
-                  value={char.sdc || 0}
-                  readOnly
-                />
-              </div>
-            </div>
-
-            {occArmorOptions.length > 0 && (
-              <p className="text-[11px] text-gray-600 mt-1">
-                * Opciones limitadas por la O.C.C.
-              </p>
-            )}
+          <div>
+            <label className="block text-xs">Raza</label>
+            <select value={char.race} onChange={e=>onSelectRace(e.target.value)} className="border p-0 rounded w-full">
+              <option value="">--</option>
+              {races.map(r=> <option key={r.id} value={r.id}>{r.name || r.label}</option>)}
+            </select>
           </div>
-
-
-          {/* Ataques */}
-          <div className="mt-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="text-sm font-medium">Ataques</div>
-                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full text-white text-xs bg-sky-600" title="Huecos restantes">
-                  {attacksRemaining}
-                </span>
-              </div>
-              <button onClick={addAttack} className={`px-2 py-0 rounded ${attacksRemaining>0 ? 'bg-gray-200' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`} disabled={attacksRemaining<=0}>
-                + Añadir ataque
-              </button>
-            </div>
-
-            {/* Cabecera como tabla */}
-            <div className="mt-2 border rounded overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="bg-gray-50">
-                    <th className="text-left p-2 w-1/4">Arma</th>
-                    <th className="text-center p-2 w-24">Nº de ataques</th>
-                    <th className="text-center p-2 w-24">Daño arma</th>
-                    <th className="text-center p-2 w-36">Bon. impactar (P.P.)</th>
-                    <th className="text-center p-2 w-36">Bon. daño (P.S.)</th>
-                    <th className="text-center p-2 w-44">Total daño</th>
-                    <th className="text-center p-2 w-28">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {attackRows.map((wId,i)=>{
-                    const w = (weapons||[]).find(x=>x.id===wId)
-                    const ppBonus = attrGenericBonus(char.attributes['P.P.']||10)
-                    const psBns   = psDamageBonus(char.attributes['P.S.']||10)
-                    const weaponLocked = !!(char.locked?.weapons?.[i]) || (!!wId && i < (char.attacks?.length||0))
-                    const baseDamage = w ? (w.damage || '-') : '-'
-                    const weaponBonus = w ? Number(w.damage_bonus || w.bonus_damage || 0) : 0
-
-                    const sign = (n)=> (Number(n) >= 0 ? `+${Number(n)}` : `${Number(n)}`)
-
-                    // Construimos SOLO la cadena — no hay cálculos de media.
-                    const totalDamageText = w
-                      ? [baseDamage, sign(psBns), weaponBonus ? sign(weaponBonus) : '+0'].join(' ')
-                      : '—'
-
-                    return (
-                      <tr key={i} className="border-t">
-                        {/* Arma */}
-                        <td className="p-0">
-                          <select
-                            value={wId||''}
-                            onChange={e=>onWeaponChange(i,e.target.value)}
-                            onFocus={refreshers?.weapons}
-                            disabled={weaponLocked}
-                            className="border p-0 rounded w-full"
-                          >
-                            <option value="">-- arma --</option>
-                            {(weapons||[]).map(ww=> <option key={ww.id} value={ww.id}>{ww.name}</option>)}
-                          </select>
-                        </td>
-
-                        {/* Nº de ataques */}
-                        <td className="p-0 text-center">{char.attacksAllowed || 0}</td>
-
-                        {/* Daño arma */}
-                        <td className="p-0 text-center">{baseDamage}</td>
-
-                        {/* Bon. impactar (P.P.) */}
-                        <td className="p-0 text-center">{ppBonus>=0?`+${ppBonus}`:ppBonus}</td>
-
-                        {/* Bon. daño (P.S.) */}
-                        <td className="p-0 text-center">{psBns>=0?`+${psBns}`:psBns}</td>
-
-                        {/* Total daño (solo cadena) */}
-                        <td className="p-0 text-center">{totalDamageText}</td>
-
-                        {/* Acciones */}
-                        <td className="p-0 text-center">
-                          {i < (char.attacks?.length || 0) ? (
-                            <button
-                              onClick={() => removeAttack(i)}
-                              disabled={!!(char.locked?.weapons?.[i])}
-                              className={`px-0 py-1 rounded ${
-                                char.locked?.weapons?.[i]
-                                  ? 'bg-gray-200 cursor-not-allowed'
-                                  : 'bg-red-100'
-                              }`}
-                            >
-                              Eliminar
-                            </button>
-                          ) : (
-                            <span className="text-gray-300">&mdash;</span>
-                          )}
-                        </td>
-
-
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </div>
+          {/* Nivel del personaje */}
+          <div className="flex items-end gap-3">
+            <div className="text-xs">Nivel del personaje</div>
+            <div className="text-2xl font-bold px-4 py-1 bg-gray-100 rounded">{char.level || 1}</div>
           </div>
-
-          {/* Habilidades */}
-          <div className="mt-3">
-            <div className="flex items-center justify-between">
-              <div className="text-sm font-medium">Habilidades</div>
-              <button onClick={()=> setChar(c=>({ ...c, skills:[...(c.skills||[]), '' ] }))} className="px-2 py-0 bg-gray-200 rounded">+ Añadir habilidad</button>
-            </div>
-            <div className="mt-2 border rounded p-0 overflow-x-auto text-center">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr>
-                    <th className="text-left">Habilidad</th>
-                    <th className="text-center">Caract.</th>
-                    <th className="text-center">O.C.C.</th>
-                    <th className="text-center">Nivel</th>
-                    <th className="text-center">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(char.skills||[]).map((s,idx)=>{
-                    const occ = occs.find(o=>o.id===char.occ)
-                    const occBonus = (occ?.occBonuses?.[s]) || (occ?.occ_bonuses?.[s]) || 0
-                    const attr = mapSkillToAttr(s, skills)
-                    const bonusAttr = attr === 'I.Q.' ? iqSkillPercent(char.attributes['I.Q.']) :
-                                      (attr === 'P.S.' ? psDamageBonus(char.attributes['P.S.']) :
-                                      attrGenericBonus(char.attributes[attr]||10))
-                    const level = (char.skillLevels||{})[s] || 0
-                    const total = occBonus + bonusAttr + Number(level||0)
-                    return (
-                      <tr key={idx} className="border-t text-center">
-                        <td className="text-left">
-                          <input
-                            list="skills-list"
-                            value={s}
-                            onChange={e=>{
-                              if (s) return; // nombre ya fijado -> no cambiar
-                              const copy=[...(char.skills||[])]; copy[idx]=e.target.value;
-                              setChar(c=>({...c, skills:copy}))
-                            }}
-                            readOnly={!!s}
-                            className="w-full p-0"
-                            onFocus={refreshers?.skills}
-                          />
-                          <datalist id="skills-list">{(skills||[]).map(sk => <option key={sk.id} value={sk.name} />)}</datalist>
-                        </td>
-                        <td className="text-center">{attr}</td>
-                        <td className="text-center">{occBonus}</td>
-                        <td className="text-center">
-                          <input
-                            type="number"
-                            value={(char.skillLevels||{})[s]||0}
-                            onChange={e=> setChar(c=>({...c, skillLevels:{...(c.skillLevels||{}), [s]:Number(e.target.value||0)} }))}
-                            className="w-20 p-0 text-center"
-                          />
-                        </td>
-                        <td className="text-center">{total}</td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-
-
-          {/* Mochila */}
-          <div className="mt-3">
-            <div className="flex items-center justify-between">
-              <div className="text-sm font-medium">Mochila / Equipo general</div>
-              <button onClick={addPackItem} className="px-2 py-1 bg-gray-200 rounded">+ Añadir ítem</button>
-            </div>
-            <div className="grid grid-cols-1 gap-2 mt-2">
-              {(char.pack||[]).map((eid,i)=>{
-                const it = (equip||[]).find(x=>x.id===eid)
-                return (
-                  <div key={i} className="flex gap-2 items-center">
-                    <select value={eid||''} onChange={e=>{ const copy=[...(char.pack||[])]; copy[i]=e.target.value; setChar(c=>({...c, pack:copy})) }} onFocus={refreshers?.equip} className="border p-2 rounded w-full">
-                      <option value="">-- ítem --</option>
-                      {(equip||[]).map(ei=> <option key={ei.id} value={ei.id}>{ei.name}</option>)}
-                    </select>
-                    <div className="border rounded p-2 w-64 text-xs">
-                      {it ? (<><div><b>Peso:</b> {it.weight_lbs ?? '-'} lb · <b>Coste:</b> {it.cost_gp ?? '-'} gp</div>{it.notes ? <div className="text-[11px] text-gray-600">{it.notes}</div> : null}</>) : '—'}
-                    </div>
-                    <button onClick={()=> setChar(c=>({ ...c, pack: c.pack.filter((_,j)=>j!==i) }))} className="px-2 py-1 bg-red-100 rounded">Eliminar</button>
-                  </div>
-                )
-              })}
-              {(!char.pack||char.pack.length===0) && <div className="text-sm text-gray-500">No hay equipo — pulsa "+" para añadir.</div>}
-            </div>
-          </div>
-
-          {/* Notas + resumen */}
-          <div className="mt-3">
-            <label className="block text-xs">Notas</label>
-            <textarea value={char.notes} onChange={e=>setChar(c=>({...c,notes:e.target.value}))} className="w-full border p-2 rounded" rows={4}></textarea>
-          </div>
-          {(() => { const d = computeDerived(); return (
-            <div className="mt-2 text-sm text-gray-700 space-y-1">
-              <div>HP: {d.hp} — A.R.: {d.ar} — S.D.C. armadura: {d.sdc} — PPE (O.C.C.): {d.ppe}</div>
-              <div className="text-xs text-gray-600">Mochila: {d.packWeight} lb — {d.packCost} gp</div>
-            </div>
-          )})()}
         </div>
+
+        {/* Atributos */}
+        <div className="mt-3">
+          <div className="flex items-center justify-between">
+            <div className="text-sm font-medium">Atributos</div>
+            <div className="text-xs text-gray-600">Rerolls disponibles: {rerollsLeft}</div>
+          </div>
+          <div className="grid grid-cols-8 gap-2 mt-2">
+            {ATTRS.map(a=> {
+              const val = char.attributes[a]
+              const bonus =
+                a === 'I.Q.' ? iqSkillPercent(val) :
+                a === 'P.S.' ? psDamageBonus(val)    :
+                               attrGenericBonus(val)
+              return (
+                <div key={a} className="border rounded p-0 text-sm">
+                  <div className="text-xs">{a}</div>
+                  <input type="number" value={val} onChange={e=>onChangeAttr(a,e.target.value)} className="w-full border p-0 rounded mt-1" />
+                  <div className="flex items-center justify-between mt-1">
+                    <span className="text-xs">Bonus: {bonus}</span>
+                    <button type="button" className={`text-xs px-0 py-0.5 rounded ${rerollsLeft>0 && selectedRace ? 'bg-amber-200' : 'bg-gray-200 cursor-not-allowed'}`} onClick={()=>rerollAttr(a)} disabled={!selectedRace || rerollsLeft<=0}>
+                      Reroll
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Armadura (global) */}
+        <div className="mt-2">
+          <div className="text-sm font-medium">Armadura</div>
+          <div className="grid grid-cols-12 gap-2 mt-1 items-center">
+            <div className="col-span-6">
+              <label className="block text-[11px] leading-tight">Modelo</label>
+              <select
+                value={char.armorId || ''}
+                onChange={e => onArmorChange(e.target.value)}
+                className="border rounded w-full text-sm px-0 py-0 leading-tight"
+              >
+                <option value="">--</option>
+                {armorOptions.map(a => (
+                  <option key={a.id} value={a.id}>{a.name}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="col-span-3">
+              <label className="block text-[11px] leading-tight">A.R.</label>
+              <input
+                type="number"
+                className="border rounded w-full text-sm px-0 py-0 leading-tight"
+                value={char.ar || 0}
+                readOnly
+              />
+            </div>
+
+            <div className="col-span-3">
+              <label className="block text-[11px] leading-tight">S.D.C.</label>
+              <input
+                type="number"
+                className="border rounded w-full text-sm px-0 py-0 leading-tight"
+                value={char.sdc || 0}
+                readOnly
+              />
+            </div>
+          </div>
+
+          {occArmorOptions.length > 0 && (
+            <p className="text-[11px] text-gray-600 mt-1">
+              * Opciones limitadas por la O.C.C.
+            </p>
+          )}
+        </div>
+
+        {/* Ataques (siempre 5 filas) */}
+        <div className="mt-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="text-sm font-medium">Ataques</div>
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full text-white text-xs bg-sky-600" title="Huecos restantes">
+                {Math.max(0, (char.attacksAllowed||0) - (char.attacks?.length || 0))}
+              </span>
+            </div>
+            <button onClick={addAttack} className={`px-2 py-0 rounded ${(char.attacksAllowed||0) > (char.attacks?.length||0) ? 'bg-gray-200' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`} disabled={(char.attacksAllowed||0) <= (char.attacks?.length||0)}>
+              + Añadir ataque
+            </button>
+          </div>
+
+          <div className="mt-2 border rounded overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gray-50">
+                  <th className="text-left p-2 w-1/4">Arma</th>
+                  <th className="text-center p-2 w-24">Nº de ataques</th>
+                  <th className="text-center p-2 w-24">Daño arma</th>
+                  <th className="text-center p-2 w-36">Bon. impactar (P.P.)</th>
+                  <th className="text-center p-2 w-36">Bon. daño (P.S.)</th>
+                  <th className="text-center p-2 w-44">Total daño</th>
+                  <th className="text-center p-2 w-28">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {attackRows.map((wId,i)=>{
+                  const w = (weapons||[]).find(x=>x.id===wId)
+                  const ppBonus = attrGenericBonus(char.attributes['P.P.']||10)
+                  const psBns   = psDamageBonus(char.attributes['P.S.']||10)
+                  const weaponLocked = !!(char.locked?.weapons?.[i]) || (!!wId && i < (char.attacks?.length||0))
+                  const baseDamage = w ? (w.damage || '-') : '-'
+                  const weaponBonus = w ? Number(w.damage_bonus || w.bonus_damage || 0) : 0
+                  const sign = (n)=> (Number(n) >= 0 ? `+${Number(n)}` : `${Number(n)}`)
+                  const totalDamageText = w ? [baseDamage, sign(psBns), weaponBonus ? sign(weaponBonus) : '+0'].join(' ') : '—'
+
+                  return (
+                    <tr key={i} className="border-t">
+                      <td className="p-0">
+                        <select
+                          value={wId||''}
+                          onChange={e=>onWeaponChange(i,e.target.value)}
+                          className="border p-0 rounded w-full"
+                        >
+                          <option value="">-- arma --</option>
+                          {(weapons||[]).map(ww=> <option key={ww.id} value={ww.id}>{ww.name}</option>)}
+                        </select>
+                      </td>
+                      <td className="p-0 text-center">{char.attacksAllowed || 0}</td>
+                      <td className="p-0 text-center">{baseDamage}</td>
+                      <td className="p-0 text-center">{ppBonus>=0?`+${ppBonus}`:ppBonus}</td>
+                      <td className="p-0 text-center">{psBns>=0?`+${psBns}`:psBns}</td>
+                      <td className="p-0 text-center">{totalDamageText}</td>
+                      <td className="p-0 text-center">
+                        {i < (char.attacks?.length || 0) ? (
+                          <button
+                            onClick={() => removeAttack(i)}
+                            disabled={!!(char.locked?.weapons?.[i])}
+                            className={`px-0 py-1 rounded ${char.locked?.weapons?.[i] ? 'bg-gray-200 cursor-not-allowed' : 'bg-red-100'}`}
+                          >
+                            Eliminar
+                          </button>
+                        ) : (
+                          <span className="text-gray-300">&mdash;</span>
+                        )}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* ====== Habilidades ====== */}
+        <div className="mt-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="text-sm font-medium">Habilidades</div>
+              <div className="inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs">
+                Quedan <b className="mx-1">{skillsLeft}</b> habilidades por elegir
+              </div>
+            </div>
+          </div>
+
+          {/* Tabla de habilidades */}
+          <div className="mt-2 border rounded overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gray-50">
+                  <th className="text-left w-8"></th>
+                  <th className="text-left p-2">Habilidad</th>
+                  <th className="text-center p-2">Base (%)</th>
+                  <th className="text-center p-2">Bono x Nivel</th>
+                  <th className="text-center p-2">Nivel</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Seleccionadas primero (orden alfabético) */}
+                {selectedList.map(sk => (
+                  <SkillRow
+                    key={`sel-${sk.id}`}
+                    skill={sk}
+                    checked={true}
+                    onToggle={()=> toggleSkill(sk.id)}
+                    editMode={editMode}
+                    gray={false}
+                  />
+                ))}
+                {/* No seleccionadas (al final). En edición: no gris. Fuera edición: gris+desactivado */}
+                {notSelectedList.map(sk => (
+                  <SkillRow
+                    key={`nosel-${sk.id}`}
+                    skill={sk}
+                    checked={false}
+                    onToggle={()=> toggleSkill(sk.id)}
+                    editMode={editMode}
+                    gray={!editMode}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Notas y resumen */}
+        <div className="mt-3">
+          <label className="block text-xs">Notas</label>
+          <textarea value={char.notes} onChange={e=>setChar(c=>({...c,notes:e.target.value}))} className="w-full border p-2 rounded" rows={3}></textarea>
+        </div>
+
       </div>
     </div>
   )
 }
 
-// ---------------- App principal ----------------
+// Fila de habilidad (con "radio" visual)
+function SkillRow({ skill, checked, onToggle, editMode, gray }){
+  const disable = gray || (!editMode && !checked)
+  return (
+    <tr className={`border-t ${gray ? 'text-gray-400' : ''}`}>
+      <td className="p-2">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={onToggle}
+          disabled={disable}
+          className="appearance-none w-4 h-4 rounded-full border border-gray-400 checked:bg-sky-600 checked:border-sky-600 cursor-pointer disabled:cursor-not-allowed"
+          title={disable ? 'Bloqueado' : 'Seleccionar'}
+        />
+      </td>
+      <td className="p-2 text-left">{skill.name}</td>
+      <td className="p-2 text-center">{skill.base}</td>
+      <td className="p-2 text-center">{skill.bonus}</td>
+      <td className="p-2 text-center">—</td>
+    </tr>
+  )
+}
+
+// ====== App principal ======
 export default function PalladiumApp(){
   const [tab,setTab] = useState('characters')
 
   const [races,setRaces] = useState([])
   const [occs,setOccs] = useState([])
   const [weapons,setWeapons] = useState([])
-  const [skills,setSkills] = useState([])
   const [spells,setSpells] = useState([])
   const [monsters,setMonsters] = useState([])
   const [npcs,setNpcs] = useState([])
@@ -598,9 +576,6 @@ export default function PalladiumApp(){
   const [circles,setCircles] = useState([])
   const [equip,setEquip] = useState([])
   const [armor,setArmor] = useState([])
-  const [magicEquip,setMagicEquip] = useState([])
-  const [herbs,setHerbs] = useState([])
-  const [diseases,setDiseases] = useState([])
 
   const refreshCatalog = async (name, setter) => {
     try {
@@ -618,7 +593,6 @@ export default function PalladiumApp(){
       ['races', setRaces],
       ['professions', setOccs],
       ['weapons', setWeapons],
-      ['skills', setSkills],
       ['spells', setSpells],
       ['monsters', setMonsters],
       ['npcs', setNpcs],
@@ -628,9 +602,6 @@ export default function PalladiumApp(){
       ['circles', setCircles],
       ['equip', setEquip],
       ['armor', setArmor],
-      ['magic_equip', setMagicEquip],
-      ['herbs', setHerbs],
-      ['diseases', setDiseases],
     ]
     init.forEach(([n,setter]) => { refreshCatalog(n, setter) })
   }, [])
@@ -683,14 +654,12 @@ export default function PalladiumApp(){
                   weapons={weapons}
                   armor={armor}
                   equip={equip}
-                  skills={skills}
                   refreshers={{
                     races:   ()=>refreshCatalog('races', setRaces),
                     occs:    ()=>refreshCatalog('professions', setOccs),
                     weapons: ()=>refreshCatalog('weapons', setWeapons),
                     armor:   ()=>refreshCatalog('armor', setArmor),
                     equip:   ()=>refreshCatalog('equip', setEquip),
-                    skills:  ()=>refreshCatalog('skills', setSkills),
                   }}
                   onSave={saveChar}
                   initial={editingChar}
@@ -705,6 +674,19 @@ export default function PalladiumApp(){
           {tab === 'maps' && <div className="bg-white p-4 rounded shadow">Mapas (pendiente)</div>}
           {tab === 'session' && <div className="bg-white p-4 rounded shadow">Panel de partida (pendiente)</div>}
         </div>
+      </div>
+    </div>
+  )
+}
+
+// Tarjeta básica de personaje
+function CharacterCard({ char, onEdit }){
+  return (
+    <div className="bg-white rounded shadow p-3 text-sm">
+      <div className="font-semibold">{char.name || 'Sin nombre'}</div>
+      <div className="text-xs text-gray-600">{char.occ || '—'} · {char.race || '—'} · Nivel {char.level || 1}</div>
+      <div className="mt-2">
+        <button onClick={()=>onEdit(char)} className="px-2 py-1 bg-gray-100 rounded">Editar</button>
       </div>
     </div>
   )
