@@ -6,26 +6,13 @@
       "ME": "10"
     },
     "occ_skills": [
-      {
-        "dancing": "20"
-      },
-      {
-        "literacy": "20"
-      },
-      {
-        "mathematics": "20"
-      },
-      {
-        "lore_demons_monsters": "15"
-      },
-      {
-        "lore_religion": "20"
-      },
-      {
-        "land_navigation": "10"
-      },
-      {
-        "wilderness_skills": "10"
+      {"dancing": "20"},
+      {"literacy": "20"},
+      {"mathematics": "20"},
+      {"lore_demons_monsters": "15"},
+      {"lore_religion": "20"},
+      {"land_navigation": "10"},
+      {"wilderness_skills": "10"
       }
     ],
     "number_related_skills": "6",
@@ -50,26 +37,13 @@
       "ME": "10"
     },
     "occ_skills": [
-      {
-        "literacy": "20"
-      },
-      {
-        "mathematics": "20"
-      },
-      {
-        "lore_demons_monsters": "15"
-      },
-      {
-        "lore_religion": "20"
-      },
-      {
-        "land_navigation": "10"
-      },
-      {
-        "streetwise": "10"
-      },
-      {
-        "wilderness_skills": "10"
+      {"literacy": "20"},
+      {"mathematics": "20"},
+      {"lore_demons_monsters": "15"},
+      {"lore_religion": "20"},
+      {"land_navigation": "10"},
+      {"streetwise": "10"},
+      {"wilderness_skills": "10"
       }
     ],
     "number_related_skills": "8",
@@ -95,29 +69,14 @@
       "PE": "11"
     },
     "occ_skills": [
-      {
-        "literacy": "15"
-      },
-      {
-        "mathematics": "20"
-      },
-      {
-        "climbing": "10"
-      },
-      {
-        "lore_demons_monsters": "15"
-      },
-      {
-        "lore_religion": "20"
-      },
-      {
-        "land_navigation": "15"
-      },
-      {
-        "swimming": "10"
-      },
-      {
-        "wilderness_skills": "15"
+      {"literacy": "15"},
+      {"mathematics": "20"},
+      {"climbing": "10"},
+      {"lore_demons_monsters": "15"},
+      {"lore_religion": "20"},
+      {"land_navigation": "15"},
+      {"swimming": "10"},
+      {"wilderness_skills": "15"
       }
     ],
     "number_related_skills": "6",
@@ -143,23 +102,12 @@
       "PE": "12"
     },
     "occ_skills": [
-      {
-        "astronomy": "15"
-      },
-      {
-        "history": "20"
-      },
-      {
-        "land_navigation": "15"
-      },
-      {
-        "lore_faeries_creatures": "20"
-      },
-      {
-        "mathematics": "20"
-      },
-      {
-        "wilderness_skills": "20"
+      {"astronomy": "15"},
+      {"history": "20"},
+      {"land_navigation": "15"},
+      {"lore_faeries_creatures": "20"},
+      {"mathematics": "20"},
+      {"wilderness_skills": "20"
       }
     ],
     "number_related_skills": "6",
@@ -184,14 +132,9 @@
       "PE": "10"
     },
     "occ_skills": [
-      {
-        "climbing": "10"
-      },
-      {
-        "athletics": "0"
-      },
-      {
-        "wilderness_skills": "10"
+      {"climbing": "10"},
+      {"athletics": "0"},
+      {"wilderness_skills": "10"
       }
     ],
     "number_related_skills": "10",
@@ -217,11 +160,8 @@
       "PP": "10"
     },
     "occ_skills": [
-      {
-        "climbing": "5"
-      },
-      {
-        "athletics": "0"
+      {"climbing": "5"},
+      {"athletics": "0"
       }
     ],
     "number_related_skills": "8",
@@ -247,11 +187,8 @@
       "PP": "12"
     },
     "occ_skills": [
-      {
-        "athletics": "0"
-      },
-      {
-        "wilderness_skills": "10"
+      {"athletics": "0"},
+      {"wilderness_skills": "10"
       }
     ],
     "number_related_skills": "8",
@@ -275,17 +212,10 @@
       "PS": "12"
     },
     "occ_skills": [
-      {
-        "dancing": "15"
-      },
-      {
-        "land_navigation": "10"
-      },
-      {
-        "literacy": "20"
-      },
-      {
-        "mathematics": "15"
+      {"dancing": "15"},
+      {"land_navigation": "10"},
+      {"literacy": "20"},
+      {"mathematics": "15"
       }
     ],
     "number_related_skills": "8",
@@ -313,20 +243,11 @@
       "PE": "12"
     },
     "occ_skills": [
-      {
-        "dancing": "10"
-      },
-      {
-        "land_navigation": "10"
-      },
-      {
-        "literacy": "10"
-      },
-      {
-        "lore_religion": "0"
-      },
-      {
-        "mathematics": "0"
+      {"dancing": "10"},
+      {"land_navigation": "10"},
+      {"literacy": "10"},
+      {"lore_religion": "0"},
+      {"mathematics": "0"
       }
     ],
     "number_related_skills": "6",
@@ -353,17 +274,10 @@
       "PE": "13"
     },
     "occ_skills": [
-      {
-        "hand_work": "10"
-      },
-      {
-        "land_navigation": "20"
-      },
-      {
-        "detection": "20"
-      },
-      {
-        "wilderness_skills": "20"
+      {"hand_work": "10"},
+      {"land_navigation": "20"},
+      {"detection": "20"},
+      {"wilderness_skills": "20"
       }
     ],
     "number_related_skills": "8",
